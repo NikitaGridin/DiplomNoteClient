@@ -116,8 +116,8 @@ const Search = observer(() => {
         <h1 className='font-bold text-2xl mb-7'>Аудиозаписи</h1>
         <div className='grid grid-cols-2 gap-10'>
             {tracks.map((track, i) => {
-              return <Track key={i} num={i + 1} track={track} addedTracks={userStore.tracksData}/>;
-            })}
+          return <Track key={i} num={i + 1} track={track} addedTracks={userStore.tracksData}  trackId={track.id} url={import.meta.env.VITE_AUDIO_URL+track.audio} img={import.meta.env.VITE_IMG_URL+track.Album.img} title={track.title} authorId={track.Album.User.id} authorNickname={track.Album.User.nickname} coautors={track.CoauthorAlias}/>;
+        })}
           </div>
         </div>
       }
