@@ -18,11 +18,10 @@ const PopupTrack = ({ onClose }) => {
 
   return (
     <div
+    onClick={(e)=>e.stopPropagation()}
       ref={popupRef}
-      className='absolute top-0 right-0 bg-white py-5 px-5 shadow-lg rounded-lg text-center'>
-      <p className='mb-3'>Добавить в очередь</p>
-      <p className='mb-3'>Добавить в плейлист</p>
-      <p className='mb-3'>Поделится</p>
+      className='absolute top-0 right-0 bg-white py-5 px-5 shadow-xl rounded-lg text-center border'>
+      <p className=''>Добавить в плейлист</p>
     </div>
   );
 };

@@ -3,6 +3,7 @@ import { makeAutoObservable } from "mobx";
 class UserStore {
     userData = {};
     tracksData = [];
+    albumsData = [];
     isAuth = false;
 
     constructor(){
@@ -20,7 +21,9 @@ class UserStore {
     setTracks (tracksData){
         this.tracksData = tracksData
     }
-    
+    setAlbums (albumsData){
+        this.albumsData = albumsData
+    }
 }
 
 export default new UserStore;

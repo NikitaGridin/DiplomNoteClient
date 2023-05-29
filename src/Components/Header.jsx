@@ -13,13 +13,13 @@ function Navbar() {
   }
 
   const links = [
-    {link:"/main",name:'Главная'},
+    {link:"/",name:'Главная'},
     {link:"/search",name:'Поиск'},
-    {link:"/genres",name:'Жанры'},
     {link:"/playlists",name:'Плейлисты'},
-    {link:"/news",name:'Новинки'},
+    {link:"/newRelease",name:'Новинки'},
     {link:"/libray",name:'Моя коллекция'},
     {link:"/profile",name:'Профиль'},
+    {link:`/author`},
     {link:"/login",name:'Войти'},
   ]
 
@@ -35,13 +35,14 @@ function Navbar() {
           <span className="font-bold text-3xl">НОТА!</span>
         </Link>
       </div>
-      <div>
+      <div className="flex items-end">
       {
         links.map((e,i) => {
           if (userStore.isAuth && e.link === '/libray' ) return <Link to={e.link} key={i} className={`font-medium text-xs mr-7 ${activeLink === e.link ? 'text-orange-400' : ''}`}>{e.name}</Link>      
           if (userStore.isAuth && e.link === '/profile' ) return <Link to={e.link} key={i} className={`font-medium text-xs mr-7 ${activeLink === e.link ? 'text-orange-400' : ''}`}>{e.name}</Link>      
           if (!userStore.isAuth && e.link === '/login') return <Link to={e.link} key={i} className={`font-medium text-xs mr-7 ${activeLink === e.link ? 'text-orange-400' : ''}`}>{e.name}</Link>  
-          if (e.link !== '/profile' && e.link !== '/login' && e.link !== '/libray') return <Link to={e.link} key={i} className={`font-medium text-xs mr-7 ${activeLink === e.link ? 'text-orange-400' : ''}`}>{e.name}</Link>      
+          if (userStore.isAuth && e.link === '/author') return <Link to={e.link+`/${userStore.userData.id}`} key={i} className={`font-medium text-xs mr-7 ${activeLink === e.link ? 'text-orange-400' : ''}`}><img className="w-12 rounded-full" src={import.meta.env.VITE_IMG_URL+userStore.userData.img}/></Link>  
+          if (e.link !== '/profile' &&e.link !== '/author' && e.link !== '/login' && e.link !== '/libray') return <Link to={e.link} key={i} className={`font-medium text-xs mr-7 ${activeLink === e.link ? 'text-orange-400' : ''}`}>{e.name}</Link>      
         })
       }
       </div>

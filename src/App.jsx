@@ -10,6 +10,11 @@ import axios from "axios";
 import userStore from "./store/userStore";
 import { observer } from "mobx-react-lite";
 import Player from "./Components/Player";
+import Search from './Pages/Search'
+import Playlists from "./Pages/Playlists";
+import NewRelease from "./Pages/NewRelease";
+import Libray from "./Pages/Libray";
+import AuthorPage from "./Pages/AuthorPage";
 
 const App = observer(() => {
 
@@ -18,20 +23,10 @@ const App = observer(() => {
             const res = await axios.get(`${import.meta.env.VITE_BACKEND_URL}auth/refresh`, {withCredentials: true}); 
             localStorage.setItem('token', res.data.accesToken);
             userStore.setUser(res.data.user);
-            getAddedTracks();
         } catch (error) {
             console.log(error);
         }
     }
-    const getAddedTracks = async () => {
-        try {
-          const { data } = await axios.get(`${import.meta.env.VITE_BACKEND_URL}libray/addedTracks/${userStore.userData.id}`);
-          userStore.setTracks(data);
-        } catch (error) {
-          console.log(error?.response?.data);
-        }
-      };
-
     React.useEffect(()=>{
         if(localStorage.getItem('token')) checkAuth();
       },[]);
@@ -50,13 +45,19 @@ const App = observer(() => {
             </>
             
         }
+            <Route path="/playlists" element={<Playlists />} />
         {
             userStore.isAuth &&
             <Route path="/profile" element={<Profile />} />
         }
         <Route path="*" element={<NoPage />} />
+        <Route path="/newRelease" element={<NewRelease />} />
+        <Route path="/libray" element={<Libray />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/author/:id" element={<AuthorPage />} />
     </Routes>
     <Player />
+  
     </div>
  </BrowserRouter>
  );
