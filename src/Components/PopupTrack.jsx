@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from "react";
 
 const PopupTrack = ({ onClose }) => {
   const popupRef = useRef(null);
@@ -10,18 +10,19 @@ const PopupTrack = ({ onClose }) => {
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   return (
     <div
-    onClick={(e)=>e.stopPropagation()}
+      onClick={(e) => e.stopPropagation()}
       ref={popupRef}
-      className='absolute top-0 right-0 bg-white py-5 px-5 shadow-xl rounded-lg text-center border'>
-      <p className=''>Добавить в плейлист</p>
+      className="absolute top-0 right-0 bg-white py-5 px-5 shadow-xl rounded-lg text-center border"
+    >
+      <p className="">Добавить в плейлист</p>
     </div>
   );
 };
