@@ -21,6 +21,7 @@ function Navbar() {
     { link: "/allAuthors", name: "Исполнители" },
     { link: "/allPlaylists", name: "Плейлисты" },
     { link: "/allGenres", name: "Жанры" },
+    { link: "/admin", name: "Админ панель" },
     { link: "/allTracks", name: "Треки" },
     { link: `/author` },
     { link: "/login", name: "Войти" },
@@ -64,6 +65,18 @@ function Navbar() {
                 {e.name}
               </Link>
             );
+          if (userStore.userData.role === "admin" && e.link === "/admin")
+            return (
+              <Link
+                to={e.link}
+                key={i}
+                className={`font-light  mr-7 ${
+                  activeLink === e.link ? "text-orange-400" : ""
+                }`}
+              >
+                {e.name}
+              </Link>
+            );
           if (userStore.isAuth && e.link === "/author")
             return (
               <Link
@@ -82,6 +95,7 @@ function Navbar() {
           if (
             e.link !== "/author" &&
             e.link !== "/login" &&
+            e.link !== "/admin" &&
             e.link !== "/libray"
           )
             return (

@@ -8,12 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { logoutReq } from "../fetch/post";
 
 import userStore from "../store/userStore";
+import { observer } from "mobx-react-lite";
 
-const AuthorPage = () => {
+const AuthorPage = observer(() => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [user, setUser] = React.useState();
   const [view, setView] = React.useState("tracks");
+  const [subscribe, setSubscribe] = React.useState();
 
   const logout = async () => {
     try {
@@ -35,9 +37,40 @@ const AuthorPage = () => {
       console.log(error?.response?.data);
     }
   };
+
+  const checkSubscribe = async () => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}connections/checkSubscribe/${
+          userStore.userData.id
+        }/${id}`
+      );
+      setSubscribe(data);
+    } catch (error) {
+      console.log(error?.response?.data);
+    }
+  };
+  const changeSubscribe = async (status) => {
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}connections/changeSubscribe`,
+        {
+          id: id,
+          userId: userStore.userData.id,
+          status: status,
+        }
+      );
+      checkSubscribe();
+    } catch (error) {
+      console.log(error?.response?.data);
+    }
+  };
   React.useEffect(() => {
     getUser();
-  }, []);
+    if (userStore.userData.id) {
+      checkSubscribe();
+    }
+  }, [id, userStore.userData.id]);
   return (
     <div className="w-9/12 mx-auto">
       {user && (
@@ -71,8 +104,18 @@ const AuthorPage = () => {
               )}
               {userStore.userData.id != id && (
                 <div className="flex mt-10">
-                  <button className="cursor-pointer border py-2 px-4 rounded-lg mr-4">
-                    Подписаться
+                  <button
+                    className="cursor-pointer border py-2 px-4 rounded-lg mr-4"
+                    onClick={() =>
+                      changeSubscribe(
+                        subscribe === "Подписаться" ||
+                          subscribe === "На вас подписан"
+                          ? "add"
+                          : "delete"
+                      )
+                    }
+                  >
+                    {subscribe}
                   </button>
                 </div>
               )}
@@ -138,6 +181,6 @@ const AuthorPage = () => {
       )}
     </div>
   );
-};
+});
 
 export default AuthorPage;

@@ -33,6 +33,10 @@ const Playlists = observer(({ url, userId, title }) => {
         setError
       );
   };
+  const deletePlaylist = (id) => {
+    const newPlaylists = elements.filter((playlist) => playlist.id !== id);
+    setElements(newPlaylists);
+  };
   return (
     <div className="mb-[120px]">
       {modal && (
@@ -53,7 +57,11 @@ const Playlists = observer(({ url, userId, title }) => {
       <h1 className="font-bold text-2xl mb-7">{title}</h1>
       <div className="grid grid-cols-4 gap-10 mb-14">
         {elements.map((playlist, i) => (
-          <Playlist playlist={playlist} key={i} />
+          <Playlist
+            playlist={playlist}
+            key={i}
+            deletePlaylist={deletePlaylist}
+          />
         ))}
       </div>
       {error && <div className="text-center">{error}</div>}

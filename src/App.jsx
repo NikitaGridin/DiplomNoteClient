@@ -21,6 +21,8 @@ import AddAlbums from "./Pages/AddAlbums";
 import AlbumPage from "./Pages/AlbumPage";
 import AllAuthors from "./Pages/AllAuthors";
 import GenrePage from "./Pages/GenrePage";
+import PlaylistPage from "./Pages/PlaylistPage copy";
+import AdminPanel from "./Pages/AdminPanel";
 
 const App = observer(() => {
   const checkAuth = async () => {
@@ -54,15 +56,21 @@ const App = observer(() => {
             </>
           )}
           {userStore.isAuth && (
-            <Route path="/addAlbum" element={<AddAlbums />} />
+            <>
+              <Route path="/addAlbum" element={<AddAlbums />} />
+              <Route path="/libray" element={<Libray />} />
+            </>
+          )}
+          {userStore.isAuth && userStore.userData.role === "admin" && (
+            <Route path="/admin/" element={<AdminPanel />} />
           )}
           <Route path="/allPlaylists" element={<AllPlaylists />} />
-          <Route path="/libray" element={<Libray />} />
           <Route path="/allAlbums" element={<AllAlbums />} />
           <Route path="/alltracks" element={<AllTracks />} />
           <Route path="/allGenres" element={<AllGenres />} />
           <Route path="/allAuthors" element={<AllAuthors />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/playlist/:id" element={<PlaylistPage />} />
           <Route path="/genre/:id" element={<GenrePage />} />
           <Route path="/author/:id" element={<AuthorPage />} />
           <Route path="/album/:id" element={<AlbumPage />} />

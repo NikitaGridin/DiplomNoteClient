@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import Message from "./Message";
 
-const ChangeGenre = ({ setModal, genre }) => {
+const ChangeGenre = ({ setModal, genre, url }) => {
   const [message, setMessage] = React.useState();
   const [messageType, setMessageType] = React.useState();
   const [title, setTitle] = React.useState(genre.title);
@@ -26,7 +26,7 @@ const ChangeGenre = ({ setModal, genre }) => {
         formData.append("img", img);
       }
       const { data } = await axios.put(
-        `${import.meta.env.VITE_BACKEND_URL}genre/update/${genre.id}`,
+        `${import.meta.env.VITE_BACKEND_URL}${url}/${genre.id}`,
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );

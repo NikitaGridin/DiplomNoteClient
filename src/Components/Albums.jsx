@@ -5,7 +5,7 @@ import BtnView from "./BtnView";
 import { getElements } from "../fetch/get";
 import userStore from "../store/userStore";
 
-const Albums = observer(({ url, userId, title, hidden, genreId }) => {
+const Albums = observer(({ url, userId, title, hidden, genreId, forAdmin }) => {
   const [elements, setElements] = React.useState([]);
   const [currentPart, setCurrentPart] = React.useState(1);
   const [error, setError] = React.useState();
@@ -57,6 +57,7 @@ const Albums = observer(({ url, userId, title, hidden, genreId }) => {
               deleteAlbum={deleteAlbum}
               addedAlbums={userStore.albumsData}
               hidden={hidden ? deleteAlbum : undefined}
+              forAdmin={forAdmin}
             />
           );
         })}

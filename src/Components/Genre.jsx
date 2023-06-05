@@ -30,7 +30,9 @@ const Genre = observer(({ genre, deleteGenreD }) => {
     <div
       className={`rounded-lg border shadow-lg hover:border-orange-300 transition-all cursor-pointer relative`}
     >
-      {modal && <ChangeGenre setModal={setModal} genre={genre} />}
+      {modal && (
+        <ChangeGenre setModal={setModal} genre={genre} url={"genre/update"} />
+      )}
       <Link to={`/genre/${genre.id}`}>
         <img
           className="rounded-lg w-full h-60 object-cover"

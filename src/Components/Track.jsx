@@ -209,7 +209,7 @@ const Track = observer(
             <div className="flex">
               {userStore.isAuth && button}
               <div onClick={(e) => handlePopupTrack(e)}>...</div>
-              {popup && <PopupTrack onClose={setPopup} />}
+              {popup && <PopupTrack onClose={setPopup} trackId={trackId} />}
             </div>
           )}
           {wait && (
