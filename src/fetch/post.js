@@ -34,6 +34,7 @@ export const activateUser = async (code) => {
     );
     localStorage.setItem("token", res.data.accesToken);
     userStore.setUser(res.data.user);
+    console.log(userStore.userData);
   } catch (error) {
     throw error;
   }

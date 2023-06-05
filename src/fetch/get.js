@@ -37,9 +37,9 @@ export const getElements = async (
       console.log(data.error);
       setError(data.error);
     } else {
-      setCurrentPart(currentPart + 1);
       setElements((prevElements) => prevElements.concat(data));
       setError(false);
+      setCurrentPart(currentPart + 1);
     }
   } catch (error) {
     console.log(error?.response?.data);
@@ -52,6 +52,26 @@ export const addedTracksReq = async (url, setIsAdded, trackId) => {
       `${import.meta.env.VITE_BACKEND_URL}${url}`
     );
     setIsAdded(data.includes(trackId));
+  } catch (error) {
+    console.log(error?.response?.data);
+  }
+};
+export const allGenresReq = async (url, setAllGenres) => {
+  try {
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_BACKEND_URL}${url}`
+    );
+    setAllGenres(data);
+  } catch (error) {
+    console.log(error?.response?.data);
+  }
+};
+export const allFriendsReq = async (url, setAllFriends) => {
+  try {
+    const { data } = await axios.get(
+      `${import.meta.env.VITE_BACKEND_URL}${url}`
+    );
+    setAllFriends(data);
   } catch (error) {
     console.log(error?.response?.data);
   }

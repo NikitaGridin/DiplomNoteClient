@@ -5,19 +5,27 @@ import { observer } from "mobx-react-lite";
 import BtnView from "./BtnView";
 import { getElements } from "../fetch/get";
 
-const Tracks = observer(({ url, userId, title, hidden, wait }) => {
+const Tracks = observer(({ url, userId, title, hidden, wait, genreId }) => {
   const [elements, setElements] = React.useState([]);
   const [currentPart, setCurrentPart] = React.useState(1);
   const [error, setError] = React.useState();
 
   React.useEffect(() => {
     handleChangePart();
-  }, []);
+  }, [userId]);
 
   const handleChangePart = async () => {
     if (userId) {
       getElements(
         `${url}/${currentPart}/${userId}`,
+        setElements,
+        setCurrentPart,
+        currentPart,
+        setError
+      );
+    } else if (genreId) {
+      getElements(
+        `${url}/${currentPart}/${genreId}`,
         setElements,
         setCurrentPart,
         currentPart,
@@ -63,7 +71,6 @@ const Tracks = observer(({ url, userId, title, hidden, wait }) => {
               delOn={deleteTrack}
               hidden={hidden ? hiddenTrack : undefined}
               wait={wait ? hiddenTrack : undefined}
-              userConfirm={track.CoauthorAlias[i].user_confirm}
             />
           );
         })}

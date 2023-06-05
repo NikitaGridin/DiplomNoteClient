@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import React from "react";
 import axios from "axios";
 import Albums from "../Components/Albums";
@@ -51,17 +51,28 @@ const AuthorPage = () => {
             <div>
               <div className="mb-4">Исполнитель</div>
               <div className="font-bold text-4xl mb-4">{user.nickname}</div>
-              <div>{user.subscribes} подписчиков</div>
+              <div className="mb-2">{user.subscribes} подписчиков</div>
+              <div>Ежемесячных слушаталей: {Math.floor(user.avg_plays)}</div>
               {userStore.userData.id == id && (
                 <div className="flex mt-10">
-                  <button className="cursor-pointer border py-2 px-4 rounded-lg mr-4">
+                  <Link
+                    to={"/addAlbum"}
+                    className="cursor-pointer border py-2 px-4 rounded-lg mr-4"
+                  >
                     Добавить альбом
-                  </button>
+                  </Link>
                   <button
                     onClick={() => logout()}
                     className="bg-red-500 text-white px-4 rounded-lg"
                   >
                     Выйти
+                  </button>
+                </div>
+              )}
+              {userStore.userData.id != id && (
+                <div className="flex mt-10">
+                  <button className="cursor-pointer border py-2 px-4 rounded-lg mr-4">
+                    Подписаться
                   </button>
                 </div>
               )}
@@ -84,14 +95,16 @@ const AuthorPage = () => {
             >
               Альбомы
             </button>
-            <button
-              onClick={() => setView("waitAccept")}
-              className={`${
-                view === "waitAccept" ? "border-b-4 border-[#1986EC]" : ""
-              }`}
-            >
-              Ждут подтверждения
-            </button>
+            {userStore.userData.id == id && (
+              <button
+                onClick={() => setView("waitAccept")}
+                className={`${
+                  view === "waitAccept" ? "border-b-4 border-[#1986EC]" : ""
+                }`}
+              >
+                Заявки на соавторство
+              </button>
+            )}
           </div>
 
           {view === "tracks" && (
@@ -109,14 +122,14 @@ const AuthorPage = () => {
               author={false}
               title={"Все альбомы исполнителя"}
               hidden={false}
-              userId={userStore.userData.id}
+              userId={id}
             />
           )}
-          {view === "waitAccept" && (
+          {view === "waitAccept" && userStore.userData.id == id && (
             <Tracks
               url={"author/waitAccept"}
               userId={userStore.userData.id}
-              title={"Ждут подтверждения"}
+              title={"Заявки на соавторство"}
               hidden={false}
               wait={true}
             />

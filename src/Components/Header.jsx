@@ -10,16 +10,16 @@ function Navbar() {
 
   const style = {
     header:
-      "flex w-9/12 mx-auto mt-12 items-end text-xs font-medium justify-between mb-[120px]",
+      "flex w-9/12 mx-auto mt-12 items-end text-sm font-light justify-between mb-[120px]",
   };
 
   const links = [
     { link: "/", name: "Главная" },
     { link: "/search", name: "Поиск" },
-    { link: "/allPlaylists", name: "Плейлисты" },
     { link: "/libray", name: "Моя коллекция" },
-    { link: "/profile", name: "Профиль" },
     { link: "/allAlbums", name: "Альбомы" },
+    { link: "/allAuthors", name: "Исполнители" },
+    { link: "/allPlaylists", name: "Плейлисты" },
     { link: "/allGenres", name: "Жанры" },
     { link: "/allTracks", name: "Треки" },
     { link: `/author` },
@@ -45,19 +45,7 @@ function Navbar() {
               <Link
                 to={e.link}
                 key={i}
-                className={`font-medium text-xs mr-7 ${
-                  activeLink === e.link ? "text-orange-400" : ""
-                }`}
-              >
-                {e.name}
-              </Link>
-            );
-          if (userStore.isAuth && e.link === "/profile")
-            return (
-              <Link
-                to={e.link}
-                key={i}
-                className={`font-medium text-xs mr-7 ${
+                className={`font-light mr-7 ${
                   activeLink === e.link ? "text-orange-400" : ""
                 }`}
               >
@@ -69,7 +57,7 @@ function Navbar() {
               <Link
                 to={e.link}
                 key={i}
-                className={`font-medium text-xs mr-7 ${
+                className={`font-light  mr-7 ${
                   activeLink === e.link ? "text-orange-400" : ""
                 }`}
               >
@@ -81,18 +69,17 @@ function Navbar() {
               <Link
                 to={e.link + `/${userStore.userData.id}`}
                 key={i}
-                className={`font-medium text-xs mr-7 ${
+                className={`font-light mr-7 ${
                   activeLink === e.link ? "text-orange-400" : ""
                 }`}
               >
                 <img
-                  className="w-12 rounded-full"
+                  className="w-12 rounded-full h-12 object-cover"
                   src={import.meta.env.VITE_IMG_URL + userStore.userData.img}
                 />
               </Link>
             );
           if (
-            e.link !== "/profile" &&
             e.link !== "/author" &&
             e.link !== "/login" &&
             e.link !== "/libray"
@@ -101,7 +88,7 @@ function Navbar() {
               <Link
                 to={e.link}
                 key={i}
-                className={`font-medium text-xs mr-7 ${
+                className={`font-light  mr-7 ${
                   activeLink === e.link ? "text-orange-400" : ""
                 }`}
               >

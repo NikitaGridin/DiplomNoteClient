@@ -1,14 +1,14 @@
 import axios from "axios";
 
-export const deleteFromLibrayReq = async (url, delOn, trackId, setIsAdded) => {
+export const deleteFromLibrayReq = async (url, hidden, trackId, setIsAdded) => {
   try {
     const { data } = await axios.delete(`${url}`);
     setIsAdded(false);
-    if (delOn) {
-      delOn(trackId);
+    if (hidden) {
+      hidden(trackId);
     }
   } catch (error) {
-    console.log(error?.response?.data);
+    console.log(error);
   }
 };
 export const deleteTrackReq = async (url, hidden, trackId, setIsAdded) => {

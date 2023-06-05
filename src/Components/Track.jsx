@@ -1,17 +1,24 @@
 import React from "react";
-import h_f from "../assets/h_f.svg";
-import h_e from "../assets/h_e.svg";
-import P_block from "../assets/p_block.svg";
-import Pa_block from "../assets/pa_block.svg";
-import PopupTrack from "./PopupTrack";
 import { Link } from "react-router-dom";
+import { observer } from "mobx-react-lite";
+
+import PopupTrack from "./PopupTrack";
+
 import userStore from "../store/userStore";
 import currentTrackStore from "../store/currentTrackStore";
-import { observer } from "mobx-react-lite";
+
 import { addedTracksReq } from "../fetch/get";
 import { deleteFromLibrayReq, deleteTrackReq } from "../fetch/delete";
 import { addToLibrayReq, auditionReq } from "../fetch/post";
 import { changeCoauthorStatus } from "../fetch/put";
+
+import Succes from "../assets/succes.svg";
+import Cancel from "../assets/cancel.svg";
+import Delete from "../assets/delete.svg";
+import h_f from "../assets/h_f.svg";
+import h_e from "../assets/h_e.svg";
+import P_block from "../assets/p_block.svg";
+import Pa_block from "../assets/pa_block.svg";
 
 const Track = observer(
   ({
@@ -27,7 +34,6 @@ const Track = observer(
     trackId,
     wait,
     hidden,
-    userConfirm,
   }) => {
     const [isAdded, setIsAdded] = React.useState(false);
     const [popup, setPopup] = React.useState(false);
@@ -81,8 +87,8 @@ const Track = observer(
         `${import.meta.env.VITE_BACKEND_URL}libray/deleteTrack/${
           userStore.userData.id
         }/${trackId}`,
-        trackId,
         hidden,
+        trackId,
         setIsAdded
       );
     };
@@ -99,60 +105,67 @@ const Track = observer(
 
     const handleDelete = async (e) => {
       e.stopPropagation();
-      deleteTrackReq(
-        `${import.meta.env.VITE_BACKEND_URL}track/delete/${trackId}`,
-        delOn,
-        trackId,
-        setIsAdded
-      );
+      if (window.confirm("Вы уверены что хотите удалить трек?")) {
+        deleteTrackReq(
+          `${import.meta.env.VITE_BACKEND_URL}track/delete/${trackId}`,
+          delOn,
+          trackId,
+          setIsAdded
+        );
+      }
     };
     const accept = async (e) => {
       e.stopPropagation();
-      changeCoauthorStatus(
-        `${import.meta.env.VITE_BACKEND_URL}changeStatus/track`,
-        userStore.userData.id,
-        trackId,
-        2,
-        setAction,
-        action,
-        delOn
-      );
+      if (window.confirm("Вы уверены что хотите участвовать в треке?")) {
+        changeCoauthorStatus(
+          `${import.meta.env.VITE_BACKEND_URL}changeStatus/track`,
+          userStore.userData.id,
+          trackId,
+          2,
+          setAction,
+          action,
+          delOn
+        );
+      }
     };
     const cancel = async (e) => {
       e.stopPropagation();
-      changeCoauthorStatus(
-        `${import.meta.env.VITE_BACKEND_URL}changeStatus/track`,
-        userStore.userData.id,
-        trackId,
-        3,
-        setAction,
-        action,
-        delOn
-      );
+      if (window.confirm("Вы уверены что не хотите участвовать в треке?")) {
+        changeCoauthorStatus(
+          `${import.meta.env.VITE_BACKEND_URL}changeStatus/track`,
+          userStore.userData.id,
+          trackId,
+          3,
+          setAction,
+          action,
+          delOn
+        );
+      }
     };
 
-    const button = isAdded ? (
-      <button onClick={(e) => handleDeleteFromLibray(e)}>
-        <img src={h_f} className="w-6 mr-5" />
-      </button>
-    ) : (
-      <button onClick={(e) => handleAddToLibray(e)}>
-        <img src={h_e} className="w-6 mr-5" />
+    const button = (
+      <button onClick={isAdded ? handleDeleteFromLibray : handleAddToLibray}>
+        <img src={isAdded ? h_f : h_e} className="w-6 mr-5" />
       </button>
     );
 
-    const delButton =
-      authorId === userStore.userData.id ||
-      userStore.userData.role === "admin" ? (
-        <button onClick={(e) => handleDelete(e)}>Удалить</button>
-      ) : (
-        ""
-      );
+    const delButton = (
+      <button onClick={(e) => handleDelete(e)}>
+        <img src={Delete} className="w-5 ml-6" />
+      </button>
+    );
 
     const buttonAccept = (
-      <button onClick={(e) => accept(e)}>Подтвердить</button>
+      <button onClick={(e) => accept(e)}>
+        <img src={Succes} className="w-8 mr-2" />
+      </button>
     );
-    const buttonCancel = <button onClick={(e) => cancel(e)}>Отменить</button>;
+
+    const buttonCancel = (
+      <button onClick={(e) => cancel(e)}>
+        <img src={Cancel} className="w-8" />
+      </button>
+    );
 
     return (
       <div
@@ -191,16 +204,24 @@ const Track = observer(
             </div>
           </div>
         </div>
-        {delButton}
-        {!wait && (
-          <div className="flex items-center">
-            {userStore.isAuth && button}
-            <div onClick={(e) => handlePopupTrack(e)}>...</div>
-            {popup && <PopupTrack onClose={setPopup} />}
-          </div>
-        )}
-        {wait && buttonAccept}
-        {wait && buttonCancel}
+        <div className="flex items-center">
+          {!wait && (
+            <div className="flex">
+              {userStore.isAuth && button}
+              <div onClick={(e) => handlePopupTrack(e)}>...</div>
+              {popup && <PopupTrack onClose={setPopup} />}
+            </div>
+          )}
+          {wait && (
+            <div>
+              {buttonAccept}
+              {buttonCancel}
+            </div>
+          )}
+          {(authorId === userStore.userData.id ||
+            userStore.userData.role === "admin") &&
+            delButton}
+        </div>
       </div>
     );
   }

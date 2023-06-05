@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 const Author = observer(({ author }) => {
   return (
     <Link
-      to={"author"}
+      to={`/author/${author.id}`}
       className={`rounded-lg border shadow-lg hover:border-orange-300 transition-all cursor-pointer`}
     >
       <img
@@ -14,13 +14,12 @@ const Author = observer(({ author }) => {
         alt=""
       />
       <div className="m-3">
-        <div className="font-bold text-sm mb-2">{author.title}</div>
-        <div className="text-sm font-light mb-2">{author.nickname}</div>
-        <div className="text-[10px] font-light mb-2">
+        <div className="text-xl font-semibold mb-2">{author.nickname}</div>
+        <div className="text-[14px] font-light mb-2">
           {author.popular_genre}
         </div>
-        <div className="text-[10px] font-light mb-2">
-          {author.auditions} прослушиваний
+        <div className="text-[14px] font-light mb-2">
+          Слушателей в месяц: {Math.floor(author.avg_plays)}
         </div>
       </div>
     </Link>

@@ -17,6 +17,10 @@ import AuthorPage from "./Pages/AuthorPage";
 import AllTracks from "./Pages/AllTracks";
 import AllGenres from "./Pages/AllGenres";
 import currentTrackStore from "./store/currentTrackStore";
+import AddAlbums from "./Pages/AddAlbums";
+import AlbumPage from "./Pages/AlbumPage";
+import AllAuthors from "./Pages/AllAuthors";
+import GenrePage from "./Pages/GenrePage";
 
 const App = observer(() => {
   const checkAuth = async () => {
@@ -29,8 +33,10 @@ const App = observer(() => {
       userStore.setUser(res.data.user);
     } catch (error) {
       console.log(error);
+      localStorage.clear();
     }
   };
+
   React.useEffect(() => {
     if (localStorage.getItem("token")) checkAuth();
   }, []);
@@ -47,14 +53,20 @@ const App = observer(() => {
               <Route path="/login" element={<Login />} />
             </>
           )}
+          {userStore.isAuth && (
+            <Route path="/addAlbum" element={<AddAlbums />} />
+          )}
           <Route path="/allPlaylists" element={<AllPlaylists />} />
-          <Route path="*" element={<NoPage />} />
           <Route path="/libray" element={<Libray />} />
           <Route path="/allAlbums" element={<AllAlbums />} />
           <Route path="/alltracks" element={<AllTracks />} />
           <Route path="/allGenres" element={<AllGenres />} />
+          <Route path="/allAuthors" element={<AllAuthors />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/genre/:id" element={<GenrePage />} />
           <Route path="/author/:id" element={<AuthorPage />} />
+          <Route path="/album/:id" element={<AlbumPage />} />
+          <Route path="*" element={<NoPage />} />
         </Routes>
         {currentTrackStore.playerActive && <Player />}
       </div>

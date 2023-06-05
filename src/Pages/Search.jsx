@@ -5,8 +5,10 @@ import userStore from "../store/userStore";
 import Track from "../Components/Track";
 import Genre from "../Components/Genre";
 import Album from "../Components/Album";
+import Playlist from "../Components/Playlist";
 
 import { searchReq } from "../fetch/get";
+import { Link } from "react-router-dom";
 
 const Search = observer(() => {
   const [search, setSearch] = React.useState("");
@@ -36,6 +38,7 @@ const Search = observer(() => {
       albums: data.albums,
       tracks: data.tracks,
       users: data.users,
+      playlists: data.playlists,
       genres: data.genres,
     });
     if (!value) {
@@ -95,13 +98,17 @@ const Search = observer(() => {
             <div className="grid grid-cols-4 gap-10">
               {results.users.map((user, i) => {
                 return (
-                  <div className="flex items-center" key={i}>
+                  <Link
+                    to={`/author/${user.id}`}
+                    className="flex items-center"
+                    key={i}
+                  >
                     <img
                       src={import.meta.env.VITE_IMG_URL + user.img}
                       className="w-20 h-20 object-cover rounded-full mr-5"
                     />
                     {user.nickname}
-                  </div>
+                  </Link>
                 );
               })}
             </div>
@@ -117,11 +124,21 @@ const Search = observer(() => {
             </div>
           </div>
         )}
+        {results.playlists && results.playlists.length > 0 && (
+          <div className="mb-28">
+            <h1 className="font-bold text-2xl mb-7">Плейлисты</h1>
+            <div className="grid grid-cols-4 gap-10">
+              {results.playlists.map((playlists, i) => (
+                <Playlist key={i} playlist={playlists} />
+              ))}
+            </div>
+          </div>
+        )}
         {results.genres && results.genres.length > 0 && (
           <div className="mb-28">
             <h1 className="font-bold text-2xl mb-7">Жанры</h1>
             <div className="grid grid-cols-4 gap-10">
-              {results.tracks.map((genre, i) => {
+              {results.genres.map((genre, i) => {
                 return <Genre key={i} genre={genre} />;
               })}
             </div>

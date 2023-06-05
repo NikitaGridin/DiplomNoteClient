@@ -3,20 +3,29 @@ import Album from "./Album";
 import { observer } from "mobx-react-lite";
 import BtnView from "./BtnView";
 import { getElements } from "../fetch/get";
+import userStore from "../store/userStore";
 
-const Albums = observer(({ url, author, userId, title }) => {
+const Albums = observer(({ url, userId, title, hidden, genreId }) => {
   const [elements, setElements] = React.useState([]);
   const [currentPart, setCurrentPart] = React.useState(1);
   const [error, setError] = React.useState();
 
   React.useEffect(() => {
     handleChangePart();
-  }, []);
+  }, [userId]);
 
   const handleChangePart = async () => {
     if (userId) {
       getElements(
         `${url}/${currentPart}/${userId}`,
+        setElements,
+        setCurrentPart,
+        currentPart,
+        setError
+      );
+    } else if (genreId) {
+      getElements(
+        `${url}/${currentPart}/${genreId}`,
         setElements,
         setCurrentPart,
         currentPart,
@@ -34,7 +43,7 @@ const Albums = observer(({ url, author, userId, title }) => {
   };
   const deleteAlbum = (id) => {
     const newTracks = elements.filter((element) => element.id !== id);
-    setTracks(newTracks);
+    setElements(newTracks);
   };
   return (
     <div className="mb-[120px]">
@@ -46,7 +55,8 @@ const Albums = observer(({ url, author, userId, title }) => {
               key={i}
               album={album}
               deleteAlbum={deleteAlbum}
-              author={author}
+              addedAlbums={userStore.albumsData}
+              hidden={hidden ? deleteAlbum : undefined}
             />
           );
         })}

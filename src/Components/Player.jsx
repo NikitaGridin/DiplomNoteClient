@@ -9,6 +9,7 @@ import Repeat_d from "../assets/repeat_d.svg";
 import Repeat_a from "../assets/repeat_a.svg";
 import Volume from "../assets/vol.svg";
 import axios from "axios";
+
 const Player = observer(() => {
   const audioRef = React.useRef();
   const volumeRef = React.useRef();
@@ -20,6 +21,7 @@ const Player = observer(() => {
   const [duration, setDuration] = React.useState(0);
   const [currentTime, setCurrentTime] = React.useState(0);
   const [modalVolume, setModalVolume] = React.useState(false);
+  const [message, setMessage] = React.useState();
 
   const togglePlayPause = () => {
     currentTrackStore.togglePlayPause();
@@ -73,18 +75,27 @@ const Player = observer(() => {
           currentTrackStore.currentTrack.id - 1
         }`
       );
-      currentTrackStore.setCurrentTrack({
-        id: data[0].id,
-        url: import.meta.env.VITE_AUDIO_URL + data[0].audio,
-        img: import.meta.env.VITE_IMG_URL + data[0].Album.img,
-        title: data[0].title,
-        authorId: data[0].Album.User.id,
-        authorNickname: data[0].Album.User.nickname,
-        coautors: data[0].CoauthorAlias,
-      });
-      currentTrackStore.setCurrentTime(0);
-      console.log(currentTrackStore);
-      audioRef.current.play();
+      if (!data.length) {
+        currentTrackStore.togglePlayPause();
+        audioRef.current.pause();
+        currentTrackStore.setCurrentTime(0);
+        setMessage("Треки закончились!");
+        setTimeout(function () {
+          setMessage("");
+        }, 2000);
+      } else {
+        currentTrackStore.setCurrentTrack({
+          id: data[0].id,
+          url: import.meta.env.VITE_AUDIO_URL + data[0].audio,
+          img: import.meta.env.VITE_IMG_URL + data[0].Album.img,
+          title: data[0].title,
+          authorId: data[0].Album.User.id,
+          authorNickname: data[0].Album.User.nickname,
+          coautors: data[0].CoauthorAlias,
+        });
+        currentTrackStore.setCurrentTime(0);
+        audioRef.current.play();
+      }
     } catch (error) {
       throw error;
     }
@@ -97,18 +108,27 @@ const Player = observer(() => {
           currentTrackStore.currentTrack.id + 1
         }`
       );
-      currentTrackStore.setCurrentTrack({
-        id: data[0].id,
-        url: import.meta.env.VITE_AUDIO_URL + data[0].audio,
-        img: import.meta.env.VITE_IMG_URL + data[0].Album.img,
-        title: data[0].title,
-        authorId: data[0].Album.User.id,
-        authorNickname: data[0].Album.User.nickname,
-        coautors: data[0].CoauthorAlias,
-      });
-      currentTrackStore.setCurrentTime(0);
-      console.log(currentTrackStore);
-      audioRef.current.play();
+      if (!data.length) {
+        currentTrackStore.togglePlayPause();
+        audioRef.current.pause();
+        currentTrackStore.setCurrentTime(0);
+        setMessage("Треки закончились!");
+        setTimeout(function () {
+          setMessage("");
+        }, 2000);
+      } else {
+        currentTrackStore.setCurrentTrack({
+          id: data[0].id,
+          url: import.meta.env.VITE_AUDIO_URL + data[0].audio,
+          img: import.meta.env.VITE_IMG_URL + data[0].Album.img,
+          title: data[0].title,
+          authorId: data[0].Album.User.id,
+          authorNickname: data[0].Album.User.nickname,
+          coautors: data[0].CoauthorAlias,
+        });
+        currentTrackStore.setCurrentTime(0);
+        audioRef.current.play();
+      }
     } catch (error) {
       throw error;
     }
@@ -130,7 +150,12 @@ const Player = observer(() => {
   ]);
   const { currentTrack, isPlaying } = currentTrackStore;
   return (
-    <div className="fixed w-1/2 mx-auto left-0 right-0 bottom-5 flex bg-gray-100 shadow-xl rounded-xl py-2 px-7 items-center border">
+    <div className="fixed w-1/2 mx-auto left-0 right-0 bottom-5 flex bg-gray-100 shadow-xl rounded-xl py-2 px-7 items-center border z-30">
+      {message && (
+        <div className="absolute text-center -top-14 border border-orange-400 w-1/3 py-2 rounded-lg mx-auto left-0 right-0 bg-gray-100">
+          {message}
+        </div>
+      )}
       <div className="flex mr-10">
         <button onClick={() => handlePrev()}>
           <img src={Prev} alt="" />
