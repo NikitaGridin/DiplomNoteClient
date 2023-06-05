@@ -151,7 +151,7 @@ const Album = observer(
             </button>
           </div>
         )}
-        {userStore.userData.role === "admin" || !forAdmin ? (
+        {userStore.userData.role === "admin" && forAdmin && (
           <div className="absolute bottom-2 right-2">
             <button
               className="rounded-xl text-white font-bold bg-green-600 px-3 text-lg py-1 mr-2"
@@ -166,7 +166,7 @@ const Album = observer(
               ×
             </button>
           </div>
-        ) : null}
+        )}
       </div>
     );
   }

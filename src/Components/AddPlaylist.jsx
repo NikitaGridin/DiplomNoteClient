@@ -30,7 +30,9 @@ const addPlaylist = ({ setModal, elements, setElements }) => {
       );
 
       const res = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}playlist/all/1`
+        `${import.meta.env.VITE_BACKEND_URL}libray/allPlaylist/1/${
+          userStore.userData.id
+        }`
       );
       setElements(res.data);
       setMessage("Плейлист успешно добавлен");

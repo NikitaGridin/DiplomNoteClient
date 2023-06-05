@@ -151,12 +151,20 @@ const AuthorPage = observer(() => {
           </div>
 
           {view === "tracks" && (
-            <Tracks
-              url={"track/tracksForAuthor"}
-              del={false}
-              userId={id}
-              title={"Треки исполнителя"}
-            />
+            <>
+              <Tracks
+                url={"track/tracksForAuthor"}
+                del={false}
+                userId={id}
+                title={"Треки исполнителя"}
+              />
+              <Tracks
+                url={"track/tracksForCoauthor"}
+                del={false}
+                userId={id}
+                title={"Совместные работы"}
+              />
+            </>
           )}
           {view === "albums" && (
             <Albums

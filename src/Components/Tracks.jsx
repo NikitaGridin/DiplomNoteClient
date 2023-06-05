@@ -11,6 +11,7 @@ const Tracks = observer(({ url, userId, title, hidden, wait, genreId }) => {
   const [error, setError] = React.useState();
 
   React.useEffect(() => {
+    setElements([]);
     handleChangePart();
   }, [userId]);
 

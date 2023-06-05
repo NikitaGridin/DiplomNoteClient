@@ -97,7 +97,7 @@ const Track = observer(
       e.stopPropagation();
       addToLibrayReq(
         `${import.meta.env.VITE_BACKEND_URL}libray/addTrack`,
-        1,
+        userStore.userData.id,
         trackId,
         setIsAdded
       );
@@ -197,9 +197,21 @@ const Track = observer(
           <div>
             <div className="font-bold text-lg mb-1">{title}</div>
             <div className="font-normal text-xs">
-              <Link className="mr-2">{authorNickname}</Link>
+              <Link
+                className="mr-2"
+                to={`/author/${authorId}`}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {authorNickname}
+              </Link>
               {coautors.map((e, i) => (
-                <Link key={i}>{e.User.nickname}</Link>
+                <Link
+                  key={i}
+                  to={`/author/${e.User.id}`}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {e.User.nickname}
+                </Link>
               ))}
             </div>
           </div>

@@ -23,6 +23,11 @@ import AllAuthors from "./Pages/AllAuthors";
 import GenrePage from "./Pages/GenrePage";
 import PlaylistPage from "./Pages/PlaylistPage copy";
 import AdminPanel from "./Pages/AdminPanel";
+import Footer from "./Components/Footer";
+import HelpPage from "./pages/HelpPage";
+import About from "./Pages/About";
+import Publish from "./Pages/Publish";
+import RulesPage from "./Pages/Rules";
 
 const App = observer(() => {
   const checkAuth = async () => {
@@ -69,14 +74,19 @@ const App = observer(() => {
           <Route path="/alltracks" element={<AllTracks />} />
           <Route path="/allGenres" element={<AllGenres />} />
           <Route path="/allAuthors" element={<AllAuthors />} />
+          <Route path="/help" element={<HelpPage />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/publish" element={<Publish />} />
           <Route path="/playlist/:id" element={<PlaylistPage />} />
           <Route path="/genre/:id" element={<GenrePage />} />
+          <Route path="/rules" element={<RulesPage />} />
           <Route path="/author/:id" element={<AuthorPage />} />
           <Route path="/album/:id" element={<AlbumPage />} />
           <Route path="*" element={<NoPage />} />
         </Routes>
         {currentTrackStore.playerActive && <Player />}
+        <Footer />
       </div>
     </BrowserRouter>
   );

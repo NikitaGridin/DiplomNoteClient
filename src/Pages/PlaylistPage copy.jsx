@@ -57,7 +57,7 @@ const PlaylistPage = () => {
                 addedTracks={userStore.tracksData}
                 trackId={track.id}
                 url={import.meta.env.VITE_AUDIO_URL + track.audio}
-                img={import.meta.env.VITE_IMG_URL + album.img}
+                img={import.meta.env.VITE_IMG_URL + track.Album.img}
                 title={track.title}
                 authorId={album.User.id}
                 authorNickname={album.User.nickname}

@@ -100,7 +100,10 @@ const AddAlbums = () => {
     allGenresReq(`genre/all/all`, setAllGenres);
   };
   const getAllFriends = async () => {
-    allGenresReq(`connections/allFriends/1`, setAllFriends);
+    allGenresReq(
+      `connections/allFriends/${userStore.userData.id}`,
+      setAllFriends
+    );
   };
   React.useEffect(() => {
     getAllGenres();
