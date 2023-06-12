@@ -2,14 +2,14 @@ import React from "react";
 
 const About = () => {
   return (
-    <div className="bg-white mx-auto w-9/12">
+    <div className="w-11/12 mx-auto xl:w-10/12">
       <h1 className="text-3xl font-bold mb-4">О нас</h1>
-      <div className="grid grid-cols-2 gap-16 mt-10">
+      <div className="grid grid-cols-1 gap-16 mt-10 md:grid-cols-2">
         <div className="">
-          <h1 className="text-xl leading-6 font-medium text-gray-900">
+          <h1 className="text-3xl leading-6 font-semibold text-gray-900 lg:text-xl">
             Наша миссия
           </h1>
-          <div className="mt-2 text-base text-gray-500">
+          <div className="mt-2 text-2xl text-justify text-gray-500 md:text-lg">
             Мы стремимся сделать музыку более доступной для всех. Наша миссия -
             предоставить нашим пользователям наилучший опыт прослушивания и
             обмена музыкой. Мы верим, что музыка объединяет людей и способна
@@ -19,10 +19,10 @@ const About = () => {
           </div>
         </div>
         <div className="">
-          <h1 className="text-xl leading-6 font-medium text-gray-900">
+          <h1 className="text-3xl leading-6 font-semibold text-gray-900 lg:text-xl">
             Наша история
           </h1>
-          <div className="mt-2 text-base text-gray-500">
+          <div className="mt-2 text-2xl text-justify text-gray-500 md:text-lg">
             Наша компания была основана в 2010 году группой энтузиастов, которые
             хотели создать удобный и доступный сервис для всех любителей музыки.
             С тех пор мы постоянно развиваемся и расширяем наш сервис, добавляя
@@ -32,10 +32,10 @@ const About = () => {
           </div>
         </div>
         <div className="">
-          <h1 className="text-xl leading-6 font-medium text-gray-900">
+          <h1 className="text-3xl leading-6 font-semibold text-gray-900 lg:text-xl">
             Наш продукт
           </h1>
-          <div className="mt-2 text-base text-gray-500">
+          <div className="mt-2 text-2xl text-justify text-gray-500 md:text-lg">
             Наш сервис предлагает широкий выбор музыки различных жанров и
             исполнителей. Мы предоставляем нашим пользователям возможность
             создавать свои плейлисты, делиться музыкой с друзьями и семьей, а
@@ -45,10 +45,10 @@ const About = () => {
           </div>
         </div>
         <div className="">
-          <h1 className="text-xl leading-6 font-medium text-gray-900">
+          <h1 className="text-3xl leading-6 font-semibold text-gray-900 lg:text-xl">
             Наша команда
           </h1>
-          <div className="mt-2 text-base text-gray-500">
+          <div className="mt-2 text-2xl text-justify text-gray-500 md:text-lg">
             Наша команда состоит из профессионалов в области музыки и
             информационных технологий. Мы собрали самых талантливых и
             амбициозных специалистов, чтобы создать лучший музыкальный сервис в

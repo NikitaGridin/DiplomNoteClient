@@ -49,13 +49,13 @@ function Navbar() {
         </Link>
       </div>
       <div
-        className={`fixed top-0 left-0 w-full h-screen text-4xl z-10 bg-gray-100 py-10 px-5 overflow-scroll md:relative md:h-auto md:flex md:text-sm md:p-0 md:w-auto md:items-center md:bg-white xl:overflow-auto ${
+        className={`fixed top-0 left-0 w-full h-screen text-3xl z-10 bg-gray-100 py-10 px-5 overflow-scroll lg:relative lg:h-auto lg:flex lg:text-sm lg:p-0 lg:w-auto lg:items-center lg:bg-white xl:overflow-auto ${
           isMenuOpen ? "block" : "hidden"
         }`}
       >
         {isMenuOpen && (
           <div
-            className="flex flex-col justify-center z-50 absolute right-5 md:hidden"
+            className="flex flex-col justify-center z-50 absolute right-5 lg:hidden"
             onClick={() => setIsMenuOpen(false)}
           >
             {" "}
@@ -68,7 +68,7 @@ function Navbar() {
               <Link
                 to={e.link}
                 key={i}
-                className={`font-normal block mb-8 md:mb-0 md:mr-4 ${
+                className={`font-normal block mb-8 lg:mb-0 md:mr-4 ${
                   activeLink === e.link ? "text-orange-400" : ""
                 }`}
                 onClick={() => handleMenu()}
@@ -81,7 +81,7 @@ function Navbar() {
               <Link
                 to={e.link}
                 key={i}
-                className={`font-normal  block mb-8 md:mb-0 md:mr-4 ${
+                className={`font-normal  block mb-8 lg:mb-0 md:mr-4 ${
                   activeLink === e.link ? "text-orange-400" : ""
                 }`}
                 onClick={() => handleMenu()}
@@ -94,7 +94,7 @@ function Navbar() {
               <Link
                 to={e.link}
                 key={i}
-                className={`font-normal  block mb-8 md:mb-0 md:mr-4 ${
+                className={`font-normal  block mb-8 lg:mb-0 md:mr-4 ${
                   activeLink === e.link ? "text-orange-400" : ""
                 }`}
                 onClick={() => handleMenu()}
@@ -107,7 +107,7 @@ function Navbar() {
               <Link
                 to={e.link + `/${userStore.userData.id}`}
                 key={i}
-                className={`font-normal block mb-8 md:mb-0 md:mr-4 ${
+                className={`font-normal block mb-8 lg:mb-0 md:mr-4 ${
                   activeLink === e.link ? "text-orange-400" : ""
                 }`}
                 onClick={() => handleMenu()}
@@ -128,7 +128,7 @@ function Navbar() {
               <Link
                 to={e.link}
                 key={i}
-                className={`font-normal  block mb-8 md:mb-0 md:mr-4 ${
+                className={`font-normal  block mb-8 lg:mb-0 md:mr-4 ${
                   activeLink === e.link ? "text-orange-400" : ""
                 }`}
                 onClick={() => handleMenu()}
@@ -140,7 +140,7 @@ function Navbar() {
       </div>
       {!isMenuOpen && (
         <div
-          className="flex flex-col justify-center z-50 md:hidden"
+          className="flex flex-col justify-center z-50 lg:hidden"
           onClick={() => setIsMenuOpen(true)}
         >
           <img src={oBurger} alt="" />

@@ -114,7 +114,7 @@ const Playlist = observer(({ playlist, deletePlaylist }) => {
 
       {userStore.userData.role === "admin" ||
       userStore.userData.id === playlist.User.id ? (
-        <div className="absolute bottom-2 right-2">
+        <div className="absolute top-2 left-2">
           <button
             className="rounded-xl text-white font-bold bg-blue-600 px-3 text-lg py-1 mr-2"
             onClick={(e) => changeGenre(e)}

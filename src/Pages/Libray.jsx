@@ -10,7 +10,7 @@ const Library = observer(() => {
 
   return (
     <div className="w-11/12 mx-auto xl:w-10/12">
-      <div className="mb-10">
+      <div className="mb-10 flex overflow-scroll md:overflow-auto">
         <button
           onClick={() => setView("tracks")}
           className={`${

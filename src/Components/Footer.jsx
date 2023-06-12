@@ -17,34 +17,36 @@ const Footer = () => {
       <div className="mb-5 xl:flex mt-6">
         <a
           href="/about"
-          className="text-xl font-semibold block mb-2 xl:mr-5 truncate"
+          className="text-3xl font-semibold block mb-4 xl:mr-5 truncate md:text-xl"
         >
           О нас
         </a>
         <a
           href="/rules"
-          className="text-xl font-semibold block mb-2 xl:mr-5 truncate"
+          className="text-3xl font-semibold block mb-4 xl:mr-5 truncate md:text-xl"
         >
           Правила публикации
         </a>
         <a
           href="/publish"
-          className="text-xl font-semibold block mb-2 xl:mr-5 truncate"
+          className="text-3xl font-semibold block mb-4 xl:mr-5 truncate md:text-xl"
         >
           Исполнителям
         </a>
         <a
           href="/help"
-          className="text-xl font-semibold block mb-2 xl:mr-5 truncate"
+          className="text-3xl font-semibold block mb-4 xl:mr-5 truncate md:text-xl"
         >
           Справка
         </a>
       </div>
-      <div className="text-sm font-light mb-5 truncate">
+      <div className="text-xl font-light mb-5 truncate md:text-lg">
         Сервис НОТА может содержать информацию, не предназначенную для
         несовершеннолетних
       </div>
-      <div className="font-light">© 2023 ООО НОТА». Проект компании НОТА.</div>
+      <div className="font-light text-xl md:text-lg">
+        © 2023 ООО НОТА». Проект компании НОТА.
+      </div>
     </footer>
   );
 };

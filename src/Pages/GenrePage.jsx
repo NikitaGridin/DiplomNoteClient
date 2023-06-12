@@ -53,10 +53,10 @@ const GenrePage = () => {
             title={"Популярные альбомы"}
             hidden={false}
           />
-          <Authors
+          {/* <Authors
             url={"authors/authorForGenre"}
             title={"Популярные исполнители"}
-          />
+          /> */}
         </div>
       )}
     </div>
