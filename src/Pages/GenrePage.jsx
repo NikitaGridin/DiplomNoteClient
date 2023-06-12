@@ -23,10 +23,10 @@ const GenrePage = () => {
     getGenre();
   }, []);
   return (
-    <div className="w-9/12 mx-auto">
+    <div className="w-11/12 mx-auto xl:w-10/12">
       {genre && (
         <div>
-          <div className="grid grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-4 mb-10">
             <img
               className="rounded-lg w-full h-64 object-cover"
               src={import.meta.env.VITE_IMG_URL + genre.img}

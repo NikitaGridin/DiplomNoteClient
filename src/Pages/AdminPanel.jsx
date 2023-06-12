@@ -3,7 +3,7 @@ import Albums from "../Components/Albums";
 
 const AdminPanel = () => {
   return (
-    <div className="mx-auto w-9/12">
+    <div className="w-11/12 mx-auto xl:w-10/12">
       <Albums
         url={`admin/all`}
         author={false}

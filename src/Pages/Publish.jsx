@@ -2,7 +2,7 @@ import React from "react";
 
 const Publish = () => {
   return (
-    <div className="w-9/12 mx-auto">
+    <div className="w-11/12 mx-auto xl:w-10/12">
       <div className="">
         <h1 className="text-3xl font-bold mb-4"> Пошаговая инструкция</h1>
         <p className="mt-4 text-ыь text-gray-500 ">

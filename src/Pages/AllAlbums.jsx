@@ -3,7 +3,7 @@ import Albums from "../Components/Albums";
 
 const AllAlbums = () => {
   return (
-    <div className="w-9/12 mx-auto">
+    <div className="w-11/12 mx-auto xl:w-10/12">
       <Albums
         url={"album/all"}
         del={false}

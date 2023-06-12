@@ -49,7 +49,7 @@ const AddGenre = ({ setModal, elements, setElements }) => {
         />
       )}
       <form
-        className="flex flex-col space-y-4 bg-white rounded-lg p-10"
+        className="flex flex-col space-y-4 bg-white rounded-lg p-10 w-full lg:w-1/2 xl:w-1/4"
         onClick={(e) => e.stopPropagation()}
         onSubmit={(e) => addGenre(e)}
       >

@@ -38,7 +38,7 @@ const Login = () => {
   };
 
   return (
-    <div className="fixed top-0 w-full z-10 py-40 h-screen bg-gradient-to-b from-[#22caff] to-[#2229e9]">
+    <div className="fixed top-0 w-full z-50 py-40 h-screen bg-gradient-to-b from-[#22caff] to-[#2229e9]">
       <img src={Bg_o} alt="" className="absolute bottom-0" />
       <img src={Bg_t} alt="" className="absolute top-0" />
       <img src={Bg_f} alt="" className="absolute right-0 bottom-0" />
@@ -48,30 +48,32 @@ const Login = () => {
         <>
           <form
             action=""
-            className="grid grid-cols-1 w-1/4 mx-auto text-center py-8 px-16 bg-white rounded-xl relative"
+            className="grid grid-cols-1 mx-auto text-center py-4 px-4 bg-white rounded-xl relative lg:w-1/2 lg:px-8 lg:py-8 xl:w-1/4"
           >
             {" "}
             <Link
               to={"/"}
-              className="rounded-full shadow-lg py-5 px-6 border absolute top-10 -left-8 bg-white"
+              className="rounded-full shadow-lg py-5 px-6 border absolute -top-8 bg-white lg:top-10 lg:-left-8"
             >
               <img src={Back} alt="" />
             </Link>{" "}
             <img src={Logo} alt="" className="mx-auto w-20 mb-7" />
-            <h1 className="text-2xl font-semibold mb-11">С возвращением!</h1>
+            <h1 className="text-xl font-semibold mb-11 lg:text-2xl">
+              С возвращением!
+            </h1>
             <input
               type="text"
               placeholder="Nickname"
               value={nickname}
               onChange={(e) => handleChangeNickname(e)}
-              className="mb-10 border-b-2 pb-2"
+              className="mb-10 border-b-2 pb-2 text-xl lg:text-lg"
             />
             <input
               type="text"
               placeholder="Password"
               value={password}
               onChange={(e) => handleChangePassword(e)}
-              className="mb-10 border-b-2 pb-2"
+              className="mb-10 border-b-2 pb-2 text-xl lg:text-lg"
             />
             <button
               onClick={(e) => handleSubmit(e)}
@@ -79,7 +81,9 @@ const Login = () => {
             >
               Войти
             </button>
-            <Link to={"/signIn"}>Ещё не зарегестрированы?</Link>
+            <Link to={"/signIn"} className="mt-5">
+              Ещё не зарегестрированы?
+            </Link>
           </form>
         </>
       )}

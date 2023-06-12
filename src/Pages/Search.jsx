@@ -64,19 +64,19 @@ const Search = observer(() => {
     }
   };
   return (
-    <div className="w-9/12 mx-auto">
-      <div className="flex items-start">
+    <div className="w-11/12 mx-auto xl:w-10/12">
+      <div className="mb-10 md:flex">
         <input
           type="text"
           placeholder="Текст для поиска"
-          className="border-black border-b-[1px] w-full mb-10 pb-2"
+          className="border-black border-b-[1px] w-full pb-2 text-2xl xl:text-lg"
           onKeyDown={handleKeyDown}
           onChange={(e) => setSearch(e.target.value)}
           value={search}
         />
         <button
           onClick={() => handleClear()}
-          className="bg-black text-white px-5 text-sm py-2 rounded-lg"
+          className="bg-black text-white px-5 py-2 rounded-lg w-full text-2xl md:w-auto md:text-sm"
         >
           Очистить
         </button>
@@ -117,7 +117,7 @@ const Search = observer(() => {
         {results.albums && results.albums.length > 0 && (
           <div className="mb-28">
             <h1 className="font-bold text-2xl mb-7">Альбомы</h1>
-            <div className="grid grid-cols-4 gap-10">
+            <div className="grid grid-cols-1 gap-10 mb-14 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
               {results.albums.map((album, i) => (
                 <Album key={i} album={album} />
               ))}
@@ -127,7 +127,7 @@ const Search = observer(() => {
         {results.playlists && results.playlists.length > 0 && (
           <div className="mb-28">
             <h1 className="font-bold text-2xl mb-7">Плейлисты</h1>
-            <div className="grid grid-cols-4 gap-10">
+            <div className="grid grid-cols-1 gap-10 mb-14 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
               {results.playlists.map((playlists, i) => (
                 <Playlist key={i} playlist={playlists} />
               ))}
@@ -137,7 +137,7 @@ const Search = observer(() => {
         {results.genres && results.genres.length > 0 && (
           <div className="mb-28">
             <h1 className="font-bold text-2xl mb-7">Жанры</h1>
-            <div className="grid grid-cols-4 gap-10">
+            <div className="grid grid-cols-1 gap-10 mb-14 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
               {results.genres.map((genre, i) => {
                 return <Genre key={i} genre={genre} />;
               })}
@@ -147,7 +147,7 @@ const Search = observer(() => {
         {results.tracks && results.tracks.length > 0 && (
           <div className="">
             <h1 className="font-bold text-2xl mb-7">Аудиозаписи</h1>
-            <div className="grid grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 gap-4 mb-14 lg:grid-cols-2 xl:grid-cols-3">
               {results.tracks.map((track, i) => {
                 return (
                   <Track

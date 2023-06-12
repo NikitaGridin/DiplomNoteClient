@@ -2,7 +2,7 @@ import React from "react";
 
 const RulesPage = () => {
   return (
-    <div className="w-9/12 mx-auto">
+    <div className="w-11/12 mx-auto xl:w-10/12">
       <h1 className="text-3xl font-bold mb-4">Правила публикации музыки</h1>
       <div className="grid grid-cols-1 gap-16 mt-10">
         <div className="">

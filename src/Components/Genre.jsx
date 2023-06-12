@@ -35,7 +35,7 @@ const Genre = observer(({ genre, deleteGenreD }) => {
       )}
       <Link to={`/genre/${genre.id}`}>
         <img
-          className="rounded-lg w-full h-60 object-cover"
+          className="rounded-lg w-full h-52 object-cover sm:h-80 lg:h-60"
           src={import.meta.env.VITE_IMG_URL + genre.img}
           alt=""
         />

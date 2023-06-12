@@ -26,7 +26,7 @@ const PopularAlbuns = observer(({ url, title }) => {
   return (
     <div className="mb-[120px]">
       <h1 className="font-bold text-2xl mb-7">{title}</h1>
-      <div className="grid grid-cols-4 gap-10 mb-14">
+      <div className="grid grid-cols-1 gap-10 mb-14 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
         {elements.map((author, i) => (
           <Author key={i} author={author} />
         ))}

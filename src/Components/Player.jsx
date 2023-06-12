@@ -150,40 +150,46 @@ const Player = observer(() => {
   ]);
   const { currentTrack, isPlaying } = currentTrackStore;
   return (
-    <div className="fixed w-1/2 mx-auto left-0 right-0 bottom-5 flex bg-gray-100 shadow-xl rounded-xl py-2 px-7 items-center border z-30">
+    <div className="fixed w-full bottom-0 bg-gray-100 shadow-xl rounded-xl py-4 items-center border z-30 md:justify-between md:px-5 lg:flex lg:py-2 xl:w-10/12 xl:mx-auto xl:left-0 xl:right-0 xl:bottom-5">
       {message && (
         <div className="absolute text-center -top-14 border border-orange-400 w-1/3 py-2 rounded-lg mx-auto left-0 right-0 bg-gray-100">
           {message}
         </div>
       )}
-      <div className="flex mr-10">
+      <div className="flex justify-center lg:mr-5">
         <button onClick={() => handlePrev()}>
-          <img src={Prev} alt="" />
+          <img src={Prev} alt="" className="w-6 lg:w-5" />
         </button>
-        <button onClick={togglePlayPause} className="mx-4">
-          {isPlaying ? <img src={Pause} alt="" /> : <img src={Play} />}
+        <button onClick={togglePlayPause} className="mx-5">
+          {isPlaying ? (
+            <img src={Pause} alt="" className="w-8 lg:w-6" />
+          ) : (
+            <img src={Play} className="w-8 lg:w-6" />
+          )}
         </button>
         <button onClick={() => handleNext()}>
-          <img src={Next} alt="" />
+          <img src={Next} alt="" className="w-6 lg:w-5" />
         </button>
       </div>
-      <div className="flex items-center">
+      <div className="flex mt-5 justify-center lg:mt-0">
         <img
-          className="w-10 h-10 object-cover rounded-2xl mr-5"
+          className="w-20 h-20 object-cover rounded-2xl mr-5 lg:w-14 lg:h-14"
           src={currentTrack.img}
           alt=""
         />
         <div>
-          <h2>{currentTrack.title}</h2>
+          <h2 className="text-xl truncate w-full block xl:text-base">
+            {currentTrack.title}
+          </h2>
           <div>
-            <span className="mr-2 text-xs font-normal text-gray-500">
+            <span className="mr-2 text-xl font-normal text-gray-500 xl:text-sm">
               {currentTrack.authorNickname}
             </span>
             {currentTrack.coautors &&
               currentTrack.coautors.map((e, i) => (
                 <span
                   key={i}
-                  className="mr-2 text-xs font-normal text-gray-500"
+                  className="mr-2 font-normal text-xl text-gray-500"
                 >
                   {e.User.nickname}
                 </span>
@@ -196,7 +202,7 @@ const Player = observer(() => {
         onLoadedMetadata={handleDurationChange}
         onTimeUpdate={handleTimeUpdate}
       />
-      <div className="flex items-center mx-auto">
+      <div className="flex justify-center mx-auto mt-5 text-2xl lg:text-lg lg:mt-0">
         <span>{formatTime(currentTime)}</span>
         <input
           type="range"
@@ -205,19 +211,19 @@ const Player = observer(() => {
           step="0.01"
           max={duration}
           onChange={handleCurrentTime}
-          className="mx-5 w-48 bg-black"
+          className="mx-5 w-40 bg-black md:w-1/2 xl:w-96"
         />
         <span>{formatTime(duration)}</span>
       </div>
 
-      <div className="mr-14 w-20 flex">
+      <div className="flex mt-5 justify-center w-full md:w-auto lg:mt-0">
         <img
           src={Volume}
           alt=""
           onClick={() => {
             setModalVolume(!modalVolume);
           }}
-          className="cursor-pointer mr-1"
+          className="cursor-pointer mr-1 w-8 md:w-12 lg:w-8  xl:w-6"
         />
         {modalVolume && (
           <input
@@ -228,17 +234,16 @@ const Player = observer(() => {
             defaultValue="1"
             ref={volumeRef}
             onChange={handleVolumeChange}
-            className="-top-10 w-20"
+            className="-top-10 w-20 md:w-40 lg:w-20"
           />
         )}
-      </div>
-
-      <div onClick={handleRepeat} className="cursor-pointer">
-        {currentTrackStore.repeat ? (
-          <img src={Repeat_a} alt="" />
-        ) : (
-          <img src={Repeat_d} alt="" />
-        )}
+        <div onClick={handleRepeat} className="cursor-pointer ml-5">
+          {currentTrackStore.repeat ? (
+            <img src={Repeat_a} alt="" className="w-8 md:w-12 lg:w-8 xl:w-6" />
+          ) : (
+            <img src={Repeat_d} alt="" className="w-8 md:w-12 lg:w-8 xl:w-6" />
+          )}
+        </div>
       </div>
     </div>
   );

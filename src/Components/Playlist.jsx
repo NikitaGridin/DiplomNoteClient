@@ -4,10 +4,25 @@ import userStore from "../store/userStore";
 import { observer } from "mobx-react-lite";
 import ChangeGenre from "./ChangeGenre";
 import axios from "axios";
+import h_f from "../assets/h_f.svg";
+import h_e from "../assets/h_e.svg";
 
 const Playlist = observer(({ playlist, deletePlaylist }) => {
   const [modal, setModal] = React.useState(false);
+  const [isAdded, setIsAdded] = React.useState(false);
 
+  const getAddedPlaylists = async () => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_BACKEND_URL}libray/addedPlaylist/${
+          userStore.userData.id
+        }`
+      );
+      setIsAdded(data.includes(playlist.id));
+    } catch (error) {
+      console.log(error?.response?.data);
+    }
+  };
   const deleteGenre = async (e) => {
     e.preventDefault();
     if (window.confirm("Вы уверены что хотите удалить плейлист?")) {
@@ -21,16 +36,56 @@ const Playlist = observer(({ playlist, deletePlaylist }) => {
       }
     }
   };
-
   const changeGenre = async (e) => {
     e.preventDefault();
     setModal(!modal);
   };
+  const handleDeleteFromLibray = async (e) => {
+    e.stopPropagation();
+    try {
+      const { data } = await axios.delete(
+        `${import.meta.env.VITE_BACKEND_URL}libray/deletePlaylist/${
+          userStore.userData.id
+        }/${playlist.id}`
+      );
+      setIsAdded(false);
+      // if (hidden) {
+      //   hidden(album.id);
+      // }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleAddToLibray = async (e) => {
+    e.stopPropagation();
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}libray/addPlaylist/${
+          userStore.userData.id
+        }/${playlist.id}`
+      );
+      setIsAdded(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const button = (
+    <button onClick={isAdded ? handleDeleteFromLibray : handleAddToLibray}>
+      <img
+        src={isAdded ? h_f : h_e}
+        className="w-6 absolute bottom-14 right-3 z-20"
+      />
+    </button>
+  );
+  React.useEffect(() => {
+    if (userStore.userData.id) {
+      getAddedPlaylists();
+    }
+  }, [userStore.userData.id]);
   return (
     <div
       className={`rounded-lg border shadow-lg hover:border-orange-300 transition-all cursor-pointer relative`}
     >
-      {" "}
       {modal && (
         <ChangeGenre
           setModal={setModal}
@@ -53,11 +108,10 @@ const Playlist = observer(({ playlist, deletePlaylist }) => {
           <div className="text-sm font-light mb-2">
             {playlist.User.nickname}
           </div>
-          <div className="text-[10px] font-light mb-2">
-            {playlist.auditions} прослушиваний
-          </div>
         </div>
       </Link>
+      {userStore.isAuth && playlist.User.id != userStore.userData.id && button}
+
       {userStore.userData.role === "admin" ||
       userStore.userData.id === playlist.User.id ? (
         <div className="absolute bottom-2 right-2">

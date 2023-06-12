@@ -90,7 +90,7 @@ const Album = observer(
       <button onClick={isAdded ? handleDeleteFromLibray : handleAddToLibray}>
         <img
           src={isAdded ? h_f : h_e}
-          className="w-6 mr-5 absolute bottom-20 -right-3 z-20"
+          className="w-10 mr-5 absolute top-3 -right-3 z-[5]"
         />
       </button>
     );
@@ -121,22 +121,26 @@ const Album = observer(
 
         <Link to={`/album/${album.id}`}>
           <img
-            className="rounded-lg w-full h-80 object-cover"
+            className="rounded-lg w-full h-52 object-cover sm:h-80 lg:h-60"
             src={import.meta.env.VITE_IMG_URL + album.img}
             alt=""
           />
           <div className="m-3">
-            <div className="font-bold text-sm mb-2">{album.title}</div>
-            <div className="text-sm font-light mb-2">{nickname}</div>
-            <div className="text-[10px] font-light mb-2">
-              {album.auditions} прослушиваний
+            <div className="font-bold text-xl mb-2 w-full truncate">
+              {album.title}
+            </div>
+            <div className="text-lg font-light mb-2 w-full truncate">
+              {nickname}
+            </div>
+            <div className="text-[14px] font-light mb-2 w-full truncate">
+              Прослушиваний: {album.auditions}
             </div>
           </div>
         </Link>
         {userStore.isAuth && !forAdmin && button}
 
-        {isAdminOrId1 && !forAdmin && (
-          <div className="absolute bottom-2 right-2">
+        {userStore.isAuth && isAdminOrId1 && !forAdmin && (
+          <div className="absolute top-2 left-2">
             <button
               className="rounded-xl text-white font-bold bg-blue-600 px-3 text-lg py-1 mr-2"
               onClick={(e) => changeAlbum(e)}

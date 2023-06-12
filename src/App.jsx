@@ -21,7 +21,7 @@ import AddAlbums from "./Pages/AddAlbums";
 import AlbumPage from "./Pages/AlbumPage";
 import AllAuthors from "./Pages/AllAuthors";
 import GenrePage from "./Pages/GenrePage";
-import PlaylistPage from "./Pages/PlaylistPage copy";
+import PlaylistPage from "./Pages/PlaylistPage";
 import AdminPanel from "./Pages/AdminPanel";
 import Footer from "./Components/Footer";
 import HelpPage from "./pages/HelpPage";

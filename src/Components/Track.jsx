@@ -19,6 +19,7 @@ import h_f from "../assets/h_f.svg";
 import h_e from "../assets/h_e.svg";
 import P_block from "../assets/p_block.svg";
 import Pa_block from "../assets/pa_block.svg";
+import Points from "../assets/points.svg";
 
 const Track = observer(
   ({
@@ -145,7 +146,7 @@ const Track = observer(
 
     const button = (
       <button onClick={isAdded ? handleDeleteFromLibray : handleAddToLibray}>
-        <img src={isAdded ? h_f : h_e} className="w-6 mr-5" />
+        <img src={isAdded ? h_f : h_e} className="w-6 mr-3" />
       </button>
     );
 
@@ -169,7 +170,7 @@ const Track = observer(
 
     return (
       <div
-        className={`flex py-2 px-5 justify-between shadow-lg border rounded-lg relative items-center cursor-pointer hover:border-yellow-400 transition-all ${
+        className={`flex py-2 px-3 justify-between shadow-lg border rounded-lg relative items-center cursor-pointer hover:border-yellow-400 transition-all xl:px-5 ${
           currentTrackStore.currentTrack.id === trackId
             ? "border-yellow-400"
             : ""
@@ -177,26 +178,36 @@ const Track = observer(
         onClick={() => playTrack()}
       >
         <div className="flex items-center">
-          <div className="mr-5">{num}</div>
+          <div className="mr-3 xl:mr-5">{num}</div>
           <div>
             {currentTrackStore.currentTrack.id === trackId && (
               <div className="absolute">
                 {currentTrackStore.isPlaying ? (
-                  <img src={Pa_block} alt="" />
+                  <img
+                    src={Pa_block}
+                    alt=""
+                    className="w-14 object-cover rounded-xl mr-3 sm:w-16"
+                  />
                 ) : (
-                  <img src={P_block} alt="" />
+                  <img
+                    src={P_block}
+                    alt=""
+                    className="w-14 object-cover rounded-xl mr-3 sm:w-16"
+                  />
                 )}
               </div>
             )}
             <img
-              className="w-12 h-12 object-cover rounded-xl mr-5"
+              className="w-14 object-cover rounded-xl mr-3 sm:w-16"
               src={img}
               alt=""
             />
           </div>
-          <div>
-            <div className="font-bold text-lg mb-1">{title}</div>
-            <div className="font-normal text-xs">
+          <div className="">
+            <div className="font-bold text-lg mb-1 truncate w-20  sm:w-full">
+              {title}
+            </div>
+            <div className="font-normal text-xs truncate w-20 sm:w-full">
               <Link
                 className="mr-2"
                 to={`/author/${authorId}`}
@@ -217,10 +228,12 @@ const Track = observer(
           </div>
         </div>
         <div className="flex items-center">
-          {!wait && (
+          {!wait && userStore.isAuth && (
             <div className="flex">
               {userStore.isAuth && button}
-              <div onClick={(e) => handlePopupTrack(e)}>...</div>
+              <div onClick={(e) => handlePopupTrack(e)}>
+                <img src={Points} />
+              </div>
               {popup && <PopupTrack onClose={setPopup} trackId={trackId} />}
             </div>
           )}

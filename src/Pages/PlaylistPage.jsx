@@ -26,27 +26,26 @@ const PlaylistPage = () => {
     setElements(newTracks);
   };
   return (
-    <div className="mx-auto w-9/12">
+    <div className="w-11/12 mx-auto xl:w-10/12">
       {album && (
-        <div className="grid grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-4 mb-10">
           <img
             className="rounded-lg w-full h-64 object-cover"
             src={import.meta.env.VITE_IMG_URL + album.img}
             alt=""
           />
           <div>
-            <h1 className="text-5xl font-semibold mb-4">{album.title}</h1>
+            <h1 className="text-2xl font-semibold mb-4">{album.title}</h1>
             <Link
-              className="text-xl font-mormal block mb-2"
+              className="text-дп font-mormal block mb-2"
               to={`/author/${album.User.id}`}
             >
-              {album.nickname}
+              Создатель: {album.User.nickname}
             </Link>
-            <h1 className="font-light">Прослушиваний: {album.auditions}</h1>
           </div>
         </div>
       )}
-      <div className="grid grid-cols-1 gap-5 mt-10">
+      <div className="grid grid-cols-1 gap-4 mb-14 lg:grid-cols-2 xl:grid-cols-3">
         {album &&
           album.Tracks.map((track, i) => {
             return (

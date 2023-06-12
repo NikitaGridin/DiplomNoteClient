@@ -2,15 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 import userStore from "../store/userStore";
 import Logo from "../assets/logo.svg";
+import oBurger from "../assets/o_burger.svg";
+import cBurger from "../assets/c_burger.svg";
 import { useLocation } from "react-router-dom";
 
 function Navbar() {
   const [activeLink, setActiveLink] = React.useState();
   const location = useLocation();
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   const style = {
     header:
-      "flex w-9/12 mx-auto mt-12 items-end text-sm font-light justify-between mb-[120px]",
+      "flex w-11/12 mx-auto mt-10 items-end text-sm font-normal justify-between mb-[120px] xl:w-10/12",
+  };
+
+  const handleMenu = () => {
+    if (window.innerWidth < 768) {
+      setIsMenuOpen(false);
+    }
   };
 
   const links = [
@@ -39,16 +48,30 @@ function Navbar() {
           <span className="font-bold text-3xl">НОТА!</span>
         </Link>
       </div>
-      <div className="flex items-end">
+      <div
+        className={`fixed top-0 left-0 w-full h-screen text-4xl z-10 bg-gray-100 py-10 px-5 overflow-scroll md:relative md:h-auto md:flex md:text-sm md:p-0 md:w-auto md:items-center md:bg-white xl:overflow-auto ${
+          isMenuOpen ? "block" : "hidden"
+        }`}
+      >
+        {isMenuOpen && (
+          <div
+            className="flex flex-col justify-center z-50 absolute right-5 md:hidden"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            {" "}
+            <img src={cBurger} alt="" />
+          </div>
+        )}
         {links.map((e, i) => {
           if (userStore.isAuth && e.link === "/libray")
             return (
               <Link
                 to={e.link}
                 key={i}
-                className={`font-light mr-7 ${
+                className={`font-normal block mb-8 md:mb-0 md:mr-4 ${
                   activeLink === e.link ? "text-orange-400" : ""
                 }`}
+                onClick={() => handleMenu()}
               >
                 {e.name}
               </Link>
@@ -58,9 +81,10 @@ function Navbar() {
               <Link
                 to={e.link}
                 key={i}
-                className={`font-light  mr-7 ${
+                className={`font-normal  block mb-8 md:mb-0 md:mr-4 ${
                   activeLink === e.link ? "text-orange-400" : ""
                 }`}
+                onClick={() => handleMenu()}
               >
                 {e.name}
               </Link>
@@ -70,9 +94,10 @@ function Navbar() {
               <Link
                 to={e.link}
                 key={i}
-                className={`font-light  mr-7 ${
+                className={`font-normal  block mb-8 md:mb-0 md:mr-4 ${
                   activeLink === e.link ? "text-orange-400" : ""
                 }`}
+                onClick={() => handleMenu()}
               >
                 {e.name}
               </Link>
@@ -82,12 +107,13 @@ function Navbar() {
               <Link
                 to={e.link + `/${userStore.userData.id}`}
                 key={i}
-                className={`font-light mr-7 ${
+                className={`font-normal block mb-8 md:mb-0 md:mr-4 ${
                   activeLink === e.link ? "text-orange-400" : ""
                 }`}
+                onClick={() => handleMenu()}
               >
                 <img
-                  className="w-12 rounded-full h-12 object-cover"
+                  className="w-32 rounded-full h-32 object-cover lg:w-12 lg:h-12"
                   src={import.meta.env.VITE_IMG_URL + userStore.userData.img}
                 />
               </Link>
@@ -102,15 +128,24 @@ function Navbar() {
               <Link
                 to={e.link}
                 key={i}
-                className={`font-light  mr-7 ${
+                className={`font-normal  block mb-8 md:mb-0 md:mr-4 ${
                   activeLink === e.link ? "text-orange-400" : ""
                 }`}
+                onClick={() => handleMenu()}
               >
                 {e.name}
               </Link>
             );
         })}
       </div>
+      {!isMenuOpen && (
+        <div
+          className="flex flex-col justify-center z-50 md:hidden"
+          onClick={() => setIsMenuOpen(true)}
+        >
+          <img src={oBurger} alt="" />
+        </div>
+      )}
     </div>
   );
 }

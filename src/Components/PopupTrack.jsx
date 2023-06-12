@@ -26,7 +26,7 @@ const PopupTrack = ({ onClose, trackId, playlistId }) => {
     setModal(!modal);
     try {
       const { data } = await axios.get(
-        ` ${import.meta.env.VITE_BACKEND_URL}libray/allPlaylist/all/${
+        ` ${import.meta.env.VITE_BACKEND_URL}playlist/playlistForAuthor/${
           userStore.userData.id
         }`
       );
@@ -64,7 +64,7 @@ const PopupTrack = ({ onClose, trackId, playlistId }) => {
     <div
       onClick={(e) => e.stopPropagation()}
       ref={popupRef}
-      className="absolute top-0 right-0 bg-white py-5 px-5 shadow-xl rounded-lg text-center border"
+      className="absolute top-0 right-0 bg-white p-4 shadow-xl rounded-lg text-center border z-50"
     >
       {modal &&
         playlist &&
@@ -74,7 +74,7 @@ const PopupTrack = ({ onClose, trackId, playlistId }) => {
             <div
               key={i}
               onClick={(e) => addToPlaylist(e, playlist, i)}
-              className={`rounded-lg flex justify-center ${
+              className={`rounded-lg flex justify-center py-5 xl:py-2 ${
                 isHighlighted ? "bg-green-500 text-white" : "border text-black"
               }`}
             >

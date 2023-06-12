@@ -69,7 +69,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="fixed top-0 w-full z-10 py-40 h-screen bg-gradient-to-b from-[#22caff] to-[#2229e9]">
+    <div className="fixed top-0 w-full z-50 py-20 h-screen bg-gradient-to-b from-[#22caff] to-[#2229e9]">
       <img src={Bg_o} alt="" className="absolute bottom-0" />
       <img src={Bg_t} alt="" className="absolute top-0" />
       <img src={Bg_f} alt="" className="absolute right-0 bottom-0" />
@@ -81,11 +81,11 @@ const SignIn = () => {
       )}
       <form
         action=""
-        className="grid grid-cols-1 w-1/4 mx-auto text-center py-8 px-16 bg-white rounded-xl relative"
+        className="grid grid-cols-1 mx-auto text-center py-4 px-4 bg-white rounded-xl relative lg:w-1/2 lg:px-8 lg:py-8 xl:w-1/4"
       >
         <Link
           to={"/"}
-          className="rounded-full shadow-lg py-5 px-6 border absolute top-10 -left-8 bg-white"
+          className="rounded-full shadow-lg py-5 px-6 border absolute -top-8 bg-white lg:top-10 lg:-left-8"
         >
           <img src={Back} alt="" />
         </Link>
@@ -97,7 +97,7 @@ const SignIn = () => {
           name="nickname"
           value={formData.nickname}
           onChange={(e) => handleChange(e)}
-          className="mb-10 border-b-2 pb-2"
+          className="mb-10 border-b-2 pb-2 text-xl lg:text-lg"
           disabled={submit ? true : false}
         />
         <input
@@ -105,7 +105,7 @@ const SignIn = () => {
           name="email"
           placeholder="Email"
           value={formData.email}
-          className="mb-10 border-b-2 pb-2"
+          className="mb-10 border-b-2 pb-2 text-xl lg:text-lg"
           onChange={(e) => handleChange(e)}
           disabled={submit ? true : false}
         />
@@ -114,7 +114,7 @@ const SignIn = () => {
           name="password"
           placeholder="Пароль"
           value={formData.password}
-          className="mb-10 border-b-2 pb-2"
+          className="mb-10 border-b-2 pb-2 text-xl lg:text-lg"
           onChange={(e) => handleChange(e)}
           disabled={submit ? true : false}
         />
@@ -123,7 +123,7 @@ const SignIn = () => {
           name="passwordRepeat"
           placeholder="Повторите пароль"
           value={formData.passwordRepeat}
-          className="mb-10 border-b-2 pb-2"
+          className="mb-10 border-b-2 pb-2 text-xl lg:text-lg"
           onChange={(e) => handleChange(e)}
           disabled={submit ? true : false}
         />
@@ -144,7 +144,7 @@ const SignIn = () => {
               placeholder="Код активации"
               value={activeCode}
               onChange={(e) => setActiveCode(e.target.value)}
-              className="mb-10 border-b-2 pb-2"
+              className="mb-10 border-b-2 pb-2 text-xl lg:text-lg"
             />
             <button
               onClick={(e) => handleSubmiActiveCode(e)}

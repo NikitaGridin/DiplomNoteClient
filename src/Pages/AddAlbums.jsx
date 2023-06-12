@@ -110,7 +110,7 @@ const AddAlbums = () => {
     getAllFriends();
   }, []);
   return (
-    <div className="w-9/12 mx-auto">
+    <div className="w-11/12 mx-auto xl:w-10/12">
       {message && (
         <Message
           bg={messageType === "success" ? "bg-green-500" : "bg-red-500"}
@@ -119,7 +119,7 @@ const AddAlbums = () => {
       )}
       <form
         action=""
-        className="grid grid-cols-1 w-1/2 border p-4 rounded-lg mx-auto"
+        className="grid grid-cols-1 w-full border p-4 rounded-lg mx-auto"
         onSubmit={handleSubmit}
       >
         <h1 className="text-center mb-8 text-2xl font-medium">
@@ -148,7 +148,7 @@ const AddAlbums = () => {
           ))}
         </select>
         <h2>Выберите жанры</h2>
-        <div className="flex mb-8">
+        <div className="grid grid-cols-2 gap-5 mb-10">
           {allGenres.length > 0 &&
             allGenres.map((e, i) => (
               <div
@@ -227,7 +227,7 @@ const AddAlbums = () => {
                   id={`audio-${index}`}
                   accept="audio/*"
                   onChange={(e) => handleAudioChange(index, e)}
-                  className="mb-5"
+                  className="mb-5 w-full"
                   name="audio"
                 />
                 <button
@@ -245,13 +245,13 @@ const AddAlbums = () => {
         <button
           type="button"
           onClick={handleAddTrack}
-          className="bg-green-500 text-white font-bold py-2 px-4 rounded"
+          className="bg-green-500 text-white font-bold mb-4 px-4 rounded py-4"
         >
           Добавить трек
         </button>
         <button
           type="submit"
-          className="bg-blue-500 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-500 text-white font-bold px-4 rounded py-4"
         >
           Добавить альбом
         </button>

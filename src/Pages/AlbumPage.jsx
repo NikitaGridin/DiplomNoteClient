@@ -26,9 +26,9 @@ const AlbumPage = () => {
     setElements(newTracks);
   };
   return (
-    <div className="mx-auto w-9/12">
+    <div className="w-11/12 mx-auto xl:w-10/12">
       {album && (
-        <div className="grid grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-4 mb-10">
           <img
             className="rounded-lg w-full h-64 object-cover"
             src={import.meta.env.VITE_IMG_URL + album.img}

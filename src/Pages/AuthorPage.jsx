@@ -72,14 +72,14 @@ const AuthorPage = observer(() => {
     }
   }, [id, userStore.userData.id]);
   return (
-    <div className="w-9/12 mx-auto">
+    <div className="w-11/12 mx-auto xl:w-10/12">
       {user && (
         <>
-          <div className="grid grid-cols-4 mb-10">
+          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-5 mb-10">
             <img
               src={import.meta.env.VITE_IMG_URL + user.img}
               alt=""
-              className="w-64 h-64 object-cover rounded-full"
+              className="w-full h-96 object-top object-cover rounded-3xl lg:rounded-full lg:w-64 lg:h-64"
             />
             <div>
               <div className="mb-4">Исполнитель</div>
@@ -87,22 +87,22 @@ const AuthorPage = observer(() => {
               <div className="mb-2">{user.subscribes} подписчиков</div>
               <div>Ежемесячных слушаталей: {Math.floor(user.avg_plays)}</div>
               {userStore.userData.id == id && (
-                <div className="flex mt-10">
+                <div className="mt-10">
                   <Link
                     to={"/addAlbum"}
-                    className="cursor-pointer border py-2 px-4 rounded-lg mr-4"
+                    className="cursor-pointer border py-4 rounded-lg block text-center mb-5"
                   >
                     Добавить альбом
                   </Link>
                   <button
                     onClick={() => logout()}
-                    className="bg-red-500 text-white px-4 rounded-lg"
+                    className="bg-red-500 text-white px-4 rounded-lg w-full py-4 "
                   >
                     Выйти
                   </button>
                 </div>
               )}
-              {userStore.userData.id != id && (
+              {userStore.isAuth && userStore.userData.id != id && (
                 <div className="flex mt-10">
                   <button
                     className="cursor-pointer border py-2 px-4 rounded-lg mr-4"
@@ -121,7 +121,7 @@ const AuthorPage = observer(() => {
               )}
             </div>
           </div>
-          <div className="mb-10">
+          <div className="mb-10 flex w-full overflow-scroll lg:overflow-auto">
             <button
               onClick={() => setView("tracks")}
               className={`${

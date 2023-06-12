@@ -9,7 +9,7 @@ const Library = observer(() => {
   const [view, setView] = React.useState("tracks");
 
   return (
-    <div className="w-9/12 mx-auto">
+    <div className="w-11/12 mx-auto xl:w-10/12">
       <div className="mb-10">
         <button
           onClick={() => setView("tracks")}
