@@ -73,6 +73,7 @@ const AlbumPage = () => {
                 authorNickname={album.User.nickname}
                 coautors={track.CoauthorAlias}
                 delOn={deleteTrack}
+                status={album.status}
               />
             );
           })}

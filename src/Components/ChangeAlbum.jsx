@@ -50,7 +50,7 @@ const ChangeAlbum = ({ setModal, album }) => {
 
   return (
     <div
-      className="fixed top-0 left-0 bg-black/30 w-full h-screen flex justify-center items-center z-10"
+      className="fixed top-0 left-0 bg-black/30 w-full h-screen flex justify-center items-center z-40"
       onClick={() => setModal(false)}
     >
       {message && (
@@ -60,7 +60,7 @@ const ChangeAlbum = ({ setModal, album }) => {
         />
       )}
       <form
-        className="flex flex-col space-y-4 bg-white rounded-lg p-10"
+        className="flex flex-col space-y-4 bg-white rounded-lg p-10 w-full lg:w-1/2"
         onClick={(e) => e.stopPropagation()}
         onSubmit={(e) => editAlbum(e)}
       >

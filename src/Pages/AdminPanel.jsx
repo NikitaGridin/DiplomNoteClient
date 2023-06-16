@@ -10,7 +10,7 @@ const AdminPanel = () => {
         title={"Заявки на публикацию альбомов"}
         hidden={false}
         forAdmin={true}
-      />{" "}
+      />
     </div>
   );
 };

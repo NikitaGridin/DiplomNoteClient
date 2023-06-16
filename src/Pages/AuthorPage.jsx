@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 import { logoutReq } from "../fetch/post";
 
+import ChangeUser from "../Components/ChangeUser";
+
 import userStore from "../store/userStore";
 import { observer } from "mobx-react-lite";
 
@@ -16,6 +18,7 @@ const AuthorPage = observer(() => {
   const [user, setUser] = React.useState();
   const [view, setView] = React.useState("tracks");
   const [subscribe, setSubscribe] = React.useState();
+  const [modal, setModal] = React.useState(false);
 
   const logout = async () => {
     try {
@@ -71,8 +74,15 @@ const AuthorPage = observer(() => {
       checkSubscribe();
     }
   }, [id, userStore.userData.id]);
+  const changeGenre = async (e) => {
+    e.preventDefault();
+    setModal(!modal);
+  };
   return (
     <div className="w-11/12 mx-auto xl:w-10/12">
+      {modal && (
+        <ChangeUser setModal={setModal} genre={user} url={"user/update"} />
+      )}
       {user && (
         <>
           <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-5 mb-10">
@@ -94,6 +104,12 @@ const AuthorPage = observer(() => {
                   >
                     Добавить альбом
                   </Link>
+                  <button
+                    className="rounded-xl border w-full py-4"
+                    onClick={(e) => changeGenre(e)}
+                  >
+                    Редактировать профиль
+                  </button>
                   <button
                     onClick={() => logout()}
                     className="bg-red-500 text-white px-4 rounded-lg w-full py-4 "

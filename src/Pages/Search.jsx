@@ -54,6 +54,7 @@ const Search = observer(() => {
   };
 
   const handleClear = () => {
+    setNoResults(false);
     setResults([]);
     setSearch("");
   };

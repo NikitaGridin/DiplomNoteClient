@@ -119,7 +119,7 @@ const AddAlbums = () => {
       )}
       <form
         action=""
-        className="grid grid-cols-1 w-full border p-4 rounded-lg mx-auto"
+        className="grid grid-cols-1 w-full border p-4 rounded-lg mx-auto lg:w-1/2"
         onSubmit={handleSubmit}
       >
         <h1 className="text-center mb-8 text-2xl font-medium">

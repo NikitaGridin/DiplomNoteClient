@@ -48,12 +48,12 @@ const Login = () => {
         <>
           <form
             action=""
-            className="grid grid-cols-1 mx-auto text-center py-4 px-4 bg-white rounded-xl relative lg:w-1/2 lg:px-8 lg:py-8 xl:w-1/4"
+            className="grid grid-cols-1 mx-auto text-center w-[90%] py-6 px-6 bg-white rounded-xl relative lg:w-1/2 lg:px-8 lg:py-8 xl:w-1/4"
           >
             {" "}
             <Link
               to={"/"}
-              className="rounded-full shadow-lg py-5 px-6 border absolute -top-8 bg-white lg:top-10 lg:-left-8"
+              className="rounded-full shadow-lg py-5 px-6 border absolute -top-8 left-4 bg-white lg:top-10 lg:-left-8"
             >
               <img src={Back} alt="" />
             </Link>{" "}
@@ -69,7 +69,7 @@ const Login = () => {
               className="mb-10 border-b-2 pb-2 text-xl lg:text-lg"
             />
             <input
-              type="text"
+              type="password"
               placeholder="Password"
               value={password}
               onChange={(e) => handleChangePassword(e)}

@@ -54,7 +54,7 @@ const Tracks = observer(({ url, userId, title, hidden, wait, genreId }) => {
   return (
     <div className="mb-[120px]">
       <h1 className="font-bold text-2xl mb-7">{title}</h1>
-      <div className="grid grid-cols-1 gap-4 mb-14 lg:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 mb-14 lg:grid-cols-2">
         {elements.map((track, i) => {
           return (
             <Track

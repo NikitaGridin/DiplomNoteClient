@@ -35,6 +35,7 @@ const Track = observer(
     trackId,
     wait,
     hidden,
+    status,
   }) => {
     const [isAdded, setIsAdded] = React.useState(false);
     const [popup, setPopup] = React.useState(false);
@@ -45,6 +46,7 @@ const Track = observer(
       e.stopPropagation();
       setPopup(!popup);
     };
+    !status ? (status = "publication") : "";
 
     const getAddedTracks = async () => {
       addedTracksReq(
@@ -228,7 +230,7 @@ const Track = observer(
           </div>
         </div>
         <div className="flex items-center">
-          {!wait && userStore.isAuth && (
+          {!wait && userStore.isAuth && status === "publication" && (
             <div className="flex">
               {userStore.isAuth && button}
               <div onClick={(e) => handlePopupTrack(e)}>
@@ -244,7 +246,8 @@ const Track = observer(
             </div>
           )}
           {(authorId === userStore.userData.id ||
-            userStore.userData.role === "admin") &&
+            (userStore.userData.role === "admin" &&
+              status === "publication")) &&
             delButton}
         </div>
       </div>

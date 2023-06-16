@@ -137,7 +137,7 @@ const Album = observer(
             </div>
           </div>
         </Link>
-        {userStore.isAuth && !forAdmin && button}
+        {userStore.isAuth && !forAdmin ? button : ""}
 
         {userStore.isAuth && isAdminOrId1 && !forAdmin && (
           <div className="absolute top-2 left-2">

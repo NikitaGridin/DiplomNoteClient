@@ -17,9 +17,7 @@ function Navbar() {
   };
 
   const handleMenu = () => {
-    if (window.innerWidth < 768) {
-      setIsMenuOpen(false);
-    }
+    setIsMenuOpen(false);
   };
 
   const links = [
@@ -49,7 +47,7 @@ function Navbar() {
         </Link>
       </div>
       <div
-        className={`fixed top-0 left-0 w-full h-screen text-3xl z-10 bg-gray-100 py-10 px-5 overflow-scroll lg:relative lg:h-auto lg:flex lg:text-sm lg:p-0 lg:w-auto lg:items-center lg:bg-white xl:overflow-auto ${
+        className={`fixed top-0 left-0 w-full h-screen text-3xl z-50 bg-gray-100 py-10 px-5 overflow-scroll lg:relative lg:h-auto lg:flex lg:text-sm lg:p-0 lg:w-auto lg:items-center lg:bg-white xl:overflow-auto lg:z-0 ${
           isMenuOpen ? "block" : "hidden"
         }`}
       >

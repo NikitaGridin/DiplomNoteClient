@@ -9,6 +9,7 @@ import Repeat_d from "../assets/repeat_d.svg";
 import Repeat_a from "../assets/repeat_a.svg";
 import Volume from "../assets/vol.svg";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const Player = observer(() => {
   const audioRef = React.useRef();
@@ -181,18 +182,23 @@ const Player = observer(() => {
           <h2 className="text-xl truncate w-full block xl:text-base">
             {currentTrack.title}
           </h2>
-          <div>
-            <span className="mr-2 text-xl font-normal text-gray-500 xl:text-sm">
+          <div className="mr-2 font-normal text-xl text-gray-500 xl:text-sm">
+            <Link
+              className="mr-2"
+              to={`/author/${currentTrack.authorId}`}
+              onClick={(e) => e.stopPropagation()}
+            >
               {currentTrack.authorNickname}
-            </span>
+            </Link>
             {currentTrack.coautors &&
               currentTrack.coautors.map((e, i) => (
-                <span
+                <Link
                   key={i}
-                  className="mr-2 font-normal text-xl text-gray-500"
+                  to={`/author/${e.User.id}`}
+                  onClick={(e) => e.stopPropagation()}
                 >
                   {e.User.nickname}
-                </span>
+                </Link>
               ))}
           </div>
         </div>

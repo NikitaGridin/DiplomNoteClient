@@ -5,7 +5,9 @@ import Message from "./Message";
 const ChangeGenre = ({ setModal, genre, url }) => {
   const [message, setMessage] = React.useState();
   const [messageType, setMessageType] = React.useState();
-  const [title, setTitle] = React.useState(genre.title);
+  const [title, setTitle] = React.useState(genre.nickname);
+  const [email, setEmail] = React.useState(genre.email);
+  const [password, setPassword] = React.useState();
   const [img, setImg] = React.useState(null);
 
   React.useEffect(() => {
@@ -21,7 +23,13 @@ const ChangeGenre = ({ setModal, genre, url }) => {
     e.preventDefault();
     try {
       const formData = new FormData();
-      formData.append("title", title);
+      if (genre.nickname != title) {
+        formData.append("nickname", title);
+      }
+      if (genre.email != email) {
+        formData.append("email", email);
+      }
+      formData.append("password", password);
       if (img) {
         formData.append("img", img);
       }
@@ -30,7 +38,9 @@ const ChangeGenre = ({ setModal, genre, url }) => {
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
-      genre.title = data.title;
+      if (data.nickname) {
+        genre.nickname = data.nickname;
+      }
       if (data.img) {
         genre.img = data.img;
       }
@@ -64,9 +74,9 @@ const ChangeGenre = ({ setModal, genre, url }) => {
         onClick={(e) => e.stopPropagation()}
         onSubmit={(e) => editGenre(e)}
       >
-        <h2 className="text-2xl font-bold mb-4">Редактировать жанр</h2>
+        <h2 className="text-2xl font-bold mb-4">Редактировать данные</h2>
         <label className="font-medium" htmlFor="name">
-          Название
+          Никнейм
         </label>
         <input
           className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -76,6 +86,29 @@ const ChangeGenre = ({ setModal, genre, url }) => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
+        />
+        <label className="font-medium" htmlFor="name">
+          Email
+        </label>
+        <input
+          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          type="text"
+          id="name"
+          name="name"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <label className="font-medium" htmlFor="name">
+          Пароль
+        </label>
+        <input
+          className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          type="password"
+          id="name"
+          name="name"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <label className="font-medium" htmlFor="name">
           Обложка
