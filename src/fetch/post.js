@@ -30,11 +30,11 @@ export const activateUser = async (code) => {
   try {
     const res = await axios.post(
       `${import.meta.env.VITE_BACKEND_URL}auth/activate`,
-      data
+      data,
+      { withCredentials: true }
     );
     localStorage.setItem("token", res.data.accesToken);
     userStore.setUser(res.data.user);
-    console.log(userStore.userData);
   } catch (error) {
     throw error;
   }

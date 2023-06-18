@@ -14,6 +14,11 @@ const AddAlbums = () => {
   const [type, setType] = React.useState();
   const [albumImage, setAlbumImage] = React.useState(null);
   const [tracks, setTracks] = React.useState([]);
+  const types = [
+    { name: "Альбом", id: 1 },
+    { name: "Сингл", id: 2 },
+    { name: "Ep", id: 3 },
+  ];
   React.useEffect(() => {
     if (message) {
       setMessage(message);
@@ -24,7 +29,11 @@ const AddAlbums = () => {
   }, [message]);
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    if (type === "2" && tracks.length > 1) {
+      setMessage("Тип 'Сингл' может содержать только один трек");
+      setMessageType("false");
+      return;
+    }
     const formData = new FormData();
     formData.append("userId", userStore.userData.id);
     formData.append("albumName", albumName);
@@ -57,13 +66,13 @@ const AddAlbums = () => {
     }
   };
 
-  const types = [
-    { name: "Альбом", id: 1 },
-    { name: "Сингл", id: 2 },
-    { name: "Ep", id: 3 },
-  ];
   const handleAddTrack = () => {
-    setTracks([...tracks, { name: "", collaborators: [], audio: null }]);
+    if (type === "2" && tracks.length >= 1) {
+      setMessage("Тип 'Сингл' может содержать только один трек");
+      setMessageType("false");
+    } else {
+      setTracks([...tracks, { name: "", collaborators: [], audio: null }]);
+    }
   };
   const handleTrackNameChange = (index, e) => {
     const newTracks = [...tracks];

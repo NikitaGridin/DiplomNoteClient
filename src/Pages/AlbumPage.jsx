@@ -52,7 +52,10 @@ const AlbumPage = () => {
                 );
               })}
             </div>
-            <h1 className="font-light">Прослушиваний: {album.auditions}</h1>
+            <h1 className="text-sm font-light text-gray-500">{album.type}</h1>
+            <h1 className="font-light text-sm text-gray-500">
+              Прослушиваний: {album.auditions ? album.auditions : 0}
+            </h1>
           </div>
         </div>
       )}

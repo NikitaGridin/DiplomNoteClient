@@ -71,12 +71,35 @@ const Player = observer(() => {
 
   const handlePrev = async () => {
     try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}track/one/${
-          currentTrackStore.currentTrack.id - 1
-        }`
-      );
-      if (!data.length) {
+      let found = false; // флаг, определяющий, был ли найден предыдущий трек
+      let attempt = 1; // счетчик попыток
+      let prevTrackId = currentTrackStore.currentTrack.id - 1; // идентификатор предыдущего трека
+
+      while (!found && attempt <= 5) {
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}track/one/${prevTrackId}`
+        );
+
+        if (data.length > 0) {
+          found = true; // предыдущий трек найден
+          currentTrackStore.setCurrentTrack({
+            id: data[0].id,
+            url: import.meta.env.VITE_AUDIO_URL + data[0].audio,
+            img: import.meta.env.VITE_IMG_URL + data[0].Album.img,
+            title: data[0].title,
+            authorId: data[0].Album.User.id,
+            authorNickname: data[0].Album.User.nickname,
+            coautors: data[0].CoauthorAlias,
+          });
+          currentTrackStore.setCurrentTime(0);
+          audioRef.current.play();
+        } else {
+          prevTrackId--; // переход к предыдущему треку
+          attempt++; // увеличение счетчика попыток
+        }
+      }
+
+      if (!found) {
         currentTrackStore.togglePlayPause();
         audioRef.current.pause();
         currentTrackStore.setCurrentTime(0);
@@ -84,18 +107,6 @@ const Player = observer(() => {
         setTimeout(function () {
           setMessage("");
         }, 2000);
-      } else {
-        currentTrackStore.setCurrentTrack({
-          id: data[0].id,
-          url: import.meta.env.VITE_AUDIO_URL + data[0].audio,
-          img: import.meta.env.VITE_IMG_URL + data[0].Album.img,
-          title: data[0].title,
-          authorId: data[0].Album.User.id,
-          authorNickname: data[0].Album.User.nickname,
-          coautors: data[0].CoauthorAlias,
-        });
-        currentTrackStore.setCurrentTime(0);
-        audioRef.current.play();
       }
     } catch (error) {
       throw error;
@@ -104,12 +115,35 @@ const Player = observer(() => {
 
   const handleNext = async () => {
     try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_BACKEND_URL}track/one/${
-          currentTrackStore.currentTrack.id + 1
-        }`
-      );
-      if (!data.length) {
+      let found = false; // флаг, определяющий, был ли найден следующий трек
+      let attempt = 1; // счетчик попыток
+      let nextTrackId = currentTrackStore.currentTrack.id + 1; // идентификатор следующего трека
+
+      while (!found && attempt <= 5) {
+        const { data } = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}track/one/${nextTrackId}`
+        );
+
+        if (data.length > 0) {
+          found = true; // следующий трек найден
+          currentTrackStore.setCurrentTrack({
+            id: data[0].id,
+            url: import.meta.env.VITE_AUDIO_URL + data[0].audio,
+            img: import.meta.env.VITE_IMG_URL + data[0].Album.img,
+            title: data[0].title,
+            authorId: data[0].Album.User.id,
+            authorNickname: data[0].Album.User.nickname,
+            coautors: data[0].CoauthorAlias,
+          });
+          currentTrackStore.setCurrentTime(0);
+          audioRef.current.play();
+        } else {
+          nextTrackId++; // переход к следующему треку
+          attempt++; // увеличение счетчика попыток
+        }
+      }
+
+      if (!found) {
         currentTrackStore.togglePlayPause();
         audioRef.current.pause();
         currentTrackStore.setCurrentTime(0);
@@ -117,18 +151,6 @@ const Player = observer(() => {
         setTimeout(function () {
           setMessage("");
         }, 2000);
-      } else {
-        currentTrackStore.setCurrentTrack({
-          id: data[0].id,
-          url: import.meta.env.VITE_AUDIO_URL + data[0].audio,
-          img: import.meta.env.VITE_IMG_URL + data[0].Album.img,
-          title: data[0].title,
-          authorId: data[0].Album.User.id,
-          authorNickname: data[0].Album.User.nickname,
-          coautors: data[0].CoauthorAlias,
-        });
-        currentTrackStore.setCurrentTime(0);
-        audioRef.current.play();
       }
     } catch (error) {
       throw error;
@@ -151,7 +173,7 @@ const Player = observer(() => {
   ]);
   const { currentTrack, isPlaying } = currentTrackStore;
   return (
-    <div className="fixed w-full bottom-0 bg-gray-100 shadow-xl rounded-xl py-4 items-center border z-30 md:justify-between md:px-5 lg:flex lg:py-2 xl:w-10/12 xl:mx-auto xl:left-0 xl:right-0 xl:bottom-5">
+    <div className="fixed w-full bottom-0 bg-gray-100 shadow-xl rounded-xl py-4 items-center border z-10 md:justify-between md:px-5 lg:flex lg:py-2 xl:w-10/12 xl:mx-auto xl:left-0 xl:right-0 xl:bottom-5">
       {message && (
         <div className="absolute text-center -top-14 border border-orange-400 w-1/3 py-2 rounded-lg mx-auto left-0 right-0 bg-gray-100">
           {message}

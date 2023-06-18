@@ -19,6 +19,7 @@ const AuthorPage = observer(() => {
   const [view, setView] = React.useState("tracks");
   const [subscribe, setSubscribe] = React.useState();
   const [modal, setModal] = React.useState(false);
+  const [tracksKey, setTracksKey] = React.useState(0);
 
   const logout = async () => {
     try {
@@ -68,12 +69,16 @@ const AuthorPage = observer(() => {
       console.log(error?.response?.data);
     }
   };
+
   React.useEffect(() => {
     getUser();
     if (userStore.userData.id) {
       checkSubscribe();
     }
+    // При изменении id обновляем ключ для компонента Tracks
+    setTracksKey((prevKey) => prevKey + 2);
   }, [id, userStore.userData.id]);
+
   const changeGenre = async (e) => {
     e.preventDefault();
     setModal(!modal);
@@ -85,34 +90,34 @@ const AuthorPage = observer(() => {
       )}
       {user && (
         <>
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-5 mb-10">
+          <div className="flex flex-col mb-10 sm:flex-row">
             <img
               src={import.meta.env.VITE_IMG_URL + user.img}
               alt=""
-              className="w-full h-96 object-top object-cover rounded-3xl lg:rounded-full lg:w-64 lg:h-64"
+              className="w-full h-96 object-top object-cover rounded-3xl sm:rounded-full sm:w-64 sm:h-64 mr-10"
             />
             <div>
               <div className="mb-4">Исполнитель</div>
               <div className="font-bold text-4xl mb-4">{user.nickname}</div>
-              <div className="mb-2">{user.subscribes} подписчиков</div>
-              <div>Ежемесячных слушаталей: {Math.floor(user.avg_plays)}</div>
+              <div className="mb-2">Подписчиков: {user.subscribes}</div>
+              <div>Cлушаталей в месяц: {Math.floor(user.avg_plays)}</div>
               {userStore.userData.id == id && (
-                <div className="mt-10">
+                <div className="mt-10 flex items-center flex-col lg:flex-row">
                   <Link
                     to={"/addAlbum"}
-                    className="cursor-pointer border py-4 rounded-lg block text-center mb-5"
+                    className="cursor-pointer border py-4 rounded-lg block text-center mb-4 w-full lg:w-auto px-4 lg:mb-0 lg:mr-4"
                   >
                     Добавить альбом
                   </Link>
                   <button
-                    className="rounded-xl border w-full py-4"
+                    className="rounded-xl border py-4 mb-4 w-full lg:w-auto px-4 lg:mb-0 lg:mr-4"
                     onClick={(e) => changeGenre(e)}
                   >
                     Редактировать профиль
                   </button>
                   <button
                     onClick={() => logout()}
-                    className="bg-red-500 text-white px-4 rounded-lg w-full py-4 "
+                    className="bg-red-500 text-white w-full rounded-lg py-4 lg:w-auto px-4 lg:mb-0"
                   >
                     Выйти
                   </button>
@@ -169,12 +174,14 @@ const AuthorPage = observer(() => {
           {view === "tracks" && (
             <>
               <Tracks
+                key={tracksKey + 2} // Устанавливаем другой ключ
                 url={"track/tracksForAuthor"}
                 del={false}
                 userId={id}
                 title={"Треки исполнителя"}
               />
               <Tracks
+                key={tracksKey + 1} // Устанавливаем другой ключ
                 url={"track/tracksForCoauthor"}
                 del={false}
                 userId={id}

@@ -188,30 +188,30 @@ const Track = observer(
                   <img
                     src={Pa_block}
                     alt=""
-                    className="w-14 object-cover rounded-xl mr-3 sm:w-16"
+                    className="h-16 w-14 object-cover rounded-xl mr-3 sm:w-16"
                   />
                 ) : (
                   <img
                     src={P_block}
                     alt=""
-                    className="w-14 object-cover rounded-xl mr-3 sm:w-16"
+                    className="h-16 w-14 object-cover rounded-xl mr-3 sm:w-16"
                   />
                 )}
               </div>
             )}
             <img
-              className="w-14 object-cover rounded-xl mr-3 sm:w-16"
+              className="h-16 w-14 object-cover rounded-xl mr-3 sm:w-16"
               src={img}
               alt=""
             />
           </div>
           <div className="">
-            <div className="font-bold text-lg mb-1 truncate w-20  sm:w-full">
+            <div className="font-bold text-lg mb-1 truncate w-20 sm:w-full">
               {title}
             </div>
             <div className="font-normal text-xs truncate w-20 sm:w-full">
               <Link
-                className="mr-2"
+                className="mr-2 text-[14px] font-light"
                 to={`/author/${authorId}`}
                 onClick={(e) => e.stopPropagation()}
               >
@@ -222,6 +222,7 @@ const Track = observer(
                   key={i}
                   to={`/author/${e.User.id}`}
                   onClick={(e) => e.stopPropagation()}
+                  className="text-[14px] font-light"
                 >
                   {e.User.nickname}
                 </Link>

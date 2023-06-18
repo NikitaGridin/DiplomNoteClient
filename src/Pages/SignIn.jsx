@@ -69,7 +69,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="fixed top-0 w-full z-50 py-20 h-screen bg-gradient-to-b from-[#22caff] to-[#2229e9]">
+    <div className="fixed top-0 w-full z-50 py-10 h-screen bg-gradient-to-b from-[#22caff] to-[#2229e9] overflow-y-scroll">
       <img src={Bg_o} alt="" className="absolute bottom-0" />
       <img src={Bg_t} alt="" className="absolute top-0" />
       <img src={Bg_f} alt="" className="absolute right-0 bottom-0" />

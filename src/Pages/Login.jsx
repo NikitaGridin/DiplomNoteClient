@@ -10,17 +10,25 @@ import Bg_f from "../assets/bg_f.svg";
 import Back from "../assets/back.svg";
 import Logo from "../assets/logo.svg";
 import Message from "../Components/Message";
+import { activateUser } from "../fetch/post";
 
 const Login = () => {
   const navigate = useNavigate();
   const [nickname, setNickname] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [message, setMessage] = React.useState();
+  const [activeCode, setActiveCode] = React.useState("");
+  const [active, setActive] = React.useState(false);
 
   const handleChangeNickname = (e) => setNickname(e.target.value);
   const handleChangePassword = (e) => setPassword(e.target.value);
   React.useEffect(() => {
     if (message) {
+      if (
+        message ===
+        "Аккаунт не активирован, ранее на вашу почту был отправлен код активации!"
+      )
+        setActive(true);
       setMessage(message);
       setTimeout(() => {
         setMessage();
@@ -36,9 +44,19 @@ const Login = () => {
       setMessage(error?.response?.data);
     }
   };
-
+  const handleSubmiActiveCode = async (e) => {
+    e.preventDefault();
+    try {
+      await activateUser(activeCode);
+      navigate(`/author/${userStore.userData.id}`, { replace: true });
+    } catch (error) {
+      setMessage(
+        error?.response?.data || "Сервер не отвечает, попробуйте позже"
+      );
+    }
+  };
   return (
-    <div className="fixed top-0 w-full z-50 py-40 h-screen bg-gradient-to-b from-[#22caff] to-[#2229e9]">
+    <div className="fixed top-0 w-full z-50 py-40 h-screen bg-gradient-to-b from-[#22caff] to-[#2229e9] overflow-y-scroll">
       <img src={Bg_o} alt="" className="absolute bottom-0" />
       <img src={Bg_t} alt="" className="absolute top-0" />
       <img src={Bg_f} alt="" className="absolute right-0 bottom-0" />
@@ -75,12 +93,31 @@ const Login = () => {
               onChange={(e) => handleChangePassword(e)}
               className="mb-10 border-b-2 pb-2 text-xl lg:text-lg"
             />
-            <button
-              onClick={(e) => handleSubmit(e)}
-              className="bg-black text-white py-5 font-bold text-base rounded-2xl"
-            >
-              Войти
-            </button>
+            {!active && (
+              <button
+                onClick={(e) => handleSubmit(e)}
+                className="bg-black text-white py-5 font-bold text-base rounded-2xl"
+              >
+                Войти
+              </button>
+            )}
+            {active && (
+              <>
+                <input
+                  type="text"
+                  placeholder="Код активации"
+                  value={activeCode}
+                  onChange={(e) => setActiveCode(e.target.value)}
+                  className="mb-10 border-b-2 pb-2 text-xl lg:text-lg"
+                />
+                <button
+                  onClick={(e) => handleSubmiActiveCode(e)}
+                  className="bg-black text-white py-5 font-bold text-base rounded-2xl"
+                >
+                  Отправить код
+                </button>
+              </>
+            )}
             <Link to={"/signIn"} className="mt-5">
               Ещё не зарегестрированы?
             </Link>

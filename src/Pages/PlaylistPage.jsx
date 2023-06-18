@@ -30,7 +30,7 @@ const PlaylistPage = () => {
       {album && (
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 xl:grid-cols-4 mb-10">
           <img
-            className="rounded-lg w-full h-64 object-cover"
+            className="rounded-lg w-full h-64 object-cover object-top"
             src={import.meta.env.VITE_IMG_URL + album.img}
             alt=""
           />
@@ -45,7 +45,7 @@ const PlaylistPage = () => {
           </div>
         </div>
       )}
-      <div className="grid grid-cols-1 gap-4 mb-14 lg:grid-cols-2 xl:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 mb-14 lg:grid-cols-2">
         {album &&
           album.Tracks.map((track, i) => {
             return (

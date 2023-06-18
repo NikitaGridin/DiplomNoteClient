@@ -132,9 +132,14 @@ const Album = observer(
             <div className="text-lg font-light mb-2 w-full truncate">
               {nickname}
             </div>
-            <div className="text-[14px] font-light mb-2 w-full truncate">
-              Прослушиваний: {album.auditions}
+            <div className="text-sm text-gray-600 font-light mb-2 w-full truncate">
+              {album.type}
             </div>
+            {!forAdmin && (
+              <div className="text-[14px] text-gray-600 font-light mb-2 w-full truncate">
+                Прослушиваний: {album.auditions ? album.auditions : 0}
+              </div>
+            )}
           </div>
         </Link>
         {userStore.isAuth && !forAdmin ? button : ""}
